@@ -24,7 +24,7 @@
   </div>
   <footer>
     <div id='leftBox'>
-      <p>Created using <a href='/#'>SvelteWeb</a></p>
+      <p>Created using <a href='https://github.com/raguay/SvelteGithubSiteTemplate'>SvelteWeb</a></p>
       <p>Copyrighted by </p>
     </div>
   </footer>

@@ -5886,7 +5886,7 @@ var app = (function () {
     }
     }).call(commonjsGlobal);
 
-
+    //# sourceMappingURL=showdown.js.map
     });
 
     const subscriber_queue = [];
@@ -7267,12 +7267,12 @@ var app = (function () {
     			attr_dev(div3, "id", "main");
     			attr_dev(div3, "class", "svelte-1se8z90");
     			add_location(div3, file$7, 20, 2, 517);
-    			attr_dev(a3, "href", "/#");
+    			attr_dev(a3, "href", "https://github.com/raguay/SvelteGithubSiteTemplate");
     			add_location(a3, file$7, 26, 23, 639);
     			attr_dev(p0, "class", "svelte-1se8z90");
     			add_location(p0, file$7, 26, 6, 622);
     			attr_dev(p1, "class", "svelte-1se8z90");
-    			add_location(p1, file$7, 27, 6, 676);
+    			add_location(p1, file$7, 27, 6, 724);
     			attr_dev(div4, "id", "leftBox");
     			attr_dev(div4, "class", "svelte-1se8z90");
     			add_location(div4, file$7, 25, 4, 597);
