@@ -10,7 +10,7 @@ compile your site once and just add new markdown files for the pages, posts, etc
 To get started, copy the template to your system using:
 
 ```sh
-npx degit raguay/ <name of your project directory>
+npx degit raguay/SvelteGithubSiteTemplate <name of your project directory>
 cd <name of your project directory>
 npm install
 bower install
