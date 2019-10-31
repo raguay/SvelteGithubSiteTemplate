@@ -1,0 +1,30 @@
+```js exec
+  import { fade } from 'svelte/transition';
+```
+
+```css style
+  .box {
+    width: 85%;
+    background-color: #ECDAAC;
+    color: black;
+    margin: auto;
+    border-radius: 10px;
+    border: 5px solid #AA7942;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+```
+
+<div class="box" in:fade="{{duration: 500}}">
+
+## About Us
+
+This is a markdown file with information about you. Change as
+you see fit.
+
+The `div` setup the proper styling for the markdown and controls
+the animation of it on the site.
+
+</div>
+
