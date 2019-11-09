@@ -97,7 +97,7 @@
       return text;
     });
 
-   window.Handlebars.registerHelper('date', function(dFormat) {
+    window.Handlebars.registerHelper('date', function(dFormat) {
       return window.moment().format(dFormat);
     });
 
@@ -186,6 +186,9 @@
     hdata["cHMS24"] = window.moment().format("H:mm:ss");
     hdata["cHM24"] = window.moment().format("H:mm");
 
+    //
+    // Add the front matter to the Handlebar's data.
+    //
     for(var i = 1; i < fm.length;i++) {
       var parts = fm[i].split(' = ');
       if(parts.length < 2) parts = fm[i].split(': ');
@@ -203,6 +206,14 @@
       // to use.
       //
       hdata[parts[0].trim()] = item;
+    }
+
+    //
+    // Add the information from the info store.
+    //
+    const linfo = get(info);
+    for(var key of Object.keys(linfo)) {
+      hdata[key] = linfo[key];
     }
 
     //
