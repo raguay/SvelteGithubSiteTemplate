@@ -1,26 +1,31 @@
-{#await promise}
-  <content in:fade="{{duration: 500}}">
-    <h2 id='waiting'>Loading page...</h2>
+{#await lastPromise}
+  <content in:fade="{{duration: 500}}" style="border: {styles.borderSize} solid {styles.borderColor}; border-radius: {styles.borderRadius}; background-color: {styles.divColor}; background-image: {styles.divBackgroundPicture}; color: {styles.textColor};" >
+    <h2>Loading Partials...</h2>
   </content>
-{:then data}
-  <content in:fade="{{duration: 500}}">
-    {@html processData(data)}
-  </content>
+{:then dt}
+  {#await firstPromise}
+    <content in:fade="{{duration: 500}}" style="border: {styles.borderSize} solid {styles.borderColor}; border-radius: {styles.borderRadius}; background-color: {styles.divColor}; background-image: {styles.divBackgroundPicture}; color: {styles.textColor};" >
+      <h2 id='waiting'>Loading page...</h2>
+    </content>
+  {:then data}
+    <content in:fade="{{duration: 500}}" style="border: {styles.borderSize} solid {styles.borderColor}; border-radius: {styles.borderRadius}; background-color: {styles.divColor}; background-image: {styles.divBackgroundPicture}; color: {styles.textColor};" >
+      {@html processData(data)}
+    </content>
+  {:catch e}
+    <content in:fade="{{duration: 500}}" style="border: {styles.borderSize} solid {styles.borderColor}; border-radius: {styles.borderRadius}; background-color: {styles.divColor}; background-image: {styles.divBackgroundPicture}; color: {styles.textColor};" >     
+      {@html errorPage}
+    </content>
+  {/await}
 {:catch e}
-  <content in:fade="{{duration: 500}}">
+  <content in:fade="{{duration: 500}}" style="border: {styles.borderSize} solid {styles.borderColor}; border-radius: {styles.borderRadius}; background-color: {styles.divColor}; background-image: {styles.divBackgroundPicture}; color: {styles.textColor};" >     
     {@html errorPage}
   </content>
 {/await}
 
-
 <style>
   content {
-    width: 85%;
-    background-color: #ECDAAC;
-    color: black;
+    width: 100%;
     margin: auto;
-    border-radius: 10px;
-    border: 5px solid #AA7942;
     padding: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -46,25 +51,25 @@
   import { get } from 'svelte/store';
   import { fade } from 'svelte/transition';
   import { info } from '../store/infoStore.js';
- 
-  export let params;
 
   let converter = null;
   let page = null;
-  let promise = fetchPage(page);
+  let firstPromise;
   let errorPage = '';
   let parts = [];
-  
-  async function fetchPage(page) {
-    if(page !== null) {
-      const site = get(info);
+  let styles = {};
+  let site = {};
+  let lastPromise;
+
+  async function fetchPage(pg) {
+    if(pg !== null) {
       var address = '';
       if(site.local) {
         address = site.address;
       } else {
         address = site.GitHub;
       }
-      const response = await fetch(address + '/site' + page + ".md");
+      const response = await fetch(address + '/site' + pg + ".md");
       const text = await response.text();
       if(response.ok && (response.status === 200)) {
         if(((text[0] !== '-')&&(text[0] !== '+'))||(text[0] === '<')) {
@@ -134,27 +139,29 @@
     // This is done by setting a new promise in the promise variable for retrieving
     // the new page information.
     //
-    location.subscribe(value => {
-      promise = fetchPage(value);
-      page = value;
+    info.subscribe(value => {
+      site = value;
+      styles = value.styles;
     });
 
-    //
-    // Get the partial templates.
-    //
-    getPartials();
+    location.subscribe(value => {
+      page = value;
+      lastPromise = getPartials();
+      firstPromise = fetchPage(page);
+    });
+
   });
 
   async function getPartials() {
     //
     // Get some error page.
     //
-    const site = get(info);
+    var st = get(info);
     var address = '';
-    if(site.local) {
-      address = site.address;
+    if(st.local) {
+      address = st.address;
     } else {
-      address = site.GitHub;
+      address = st.GitHub;
     }
     var rep = await fetch(address + '/site/404.md');
     errorPage = await rep.text();
@@ -162,15 +169,29 @@
     //
     // Get the parts pages.
     //
-    for(const page of site.parts) {
-      var rep = await fetch(address + '/site/parts/' + page);
+    var lastPromise = null;
+    for(var pg of st.parts) {
+      var rep = await fetch(address + '/site/parts/' + pg);
       var partial = await rep.text();
-      window.Handlebars.registerPartial(page, partial);
+      lastPromise = partial;
+      window.Handlebars.registerPartial(pg, partial);
     }
+
+    return lastPromise;
   }
 
   function processData(data) {
     var result = '';
+    
+    //
+    // This should never happen but if it does, then reload.
+    //
+    if(typeof data === 'undefined') return '';
+    
+    if(data[0] === '<') {
+      firstPromise = fetchPage(page);
+      return '';
+    }
 
     //
     // There are two types of front matter: delimited by three '-' and using a colon,

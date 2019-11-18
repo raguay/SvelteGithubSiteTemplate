@@ -27,7 +27,7 @@
   }
 ```
 
-<div class="box" style="background-color: {styles.divColor}; background-image: {styles.divBackgroundPicture}; color: {styles.textColor};" in:fade="{{duration: 500}}">
+<div class="box" style="border: {styles.borderSize} solid {styles.borderColor}; border-radius: {styles.borderRadius}; background-color: {styles.divColor}; background-image: {styles.divBackgroundPicture}; color: {styles.textColor};" in:fade="{{duration: 500}}">
 
 ## About Us
 

@@ -25,8 +25,7 @@
     margin-bottom: 10px;
   }
 ```
-
-<div class="box" style="background-color: {styles.divColor}; background-image: {styles.divBackgroundPicture}; color: {styles.textColor};" in:fade="{{duration: 500}}">
+<div class="box" style="border: {styles.borderSize} solid {styles.borderColor}; border-radius: {styles.borderRadius}; background-color: {styles.divColor}; background-image: {styles.divBackgroundPicture}; color: {styles.textColor};" in:fade="{{duration: 500}}">
 
 This markdown file contains the front page for your site. Everything in this
 file will be in the main content area. This file and the `About.svexy` file are

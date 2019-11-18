@@ -758,11 +758,13 @@ var app = (function () {
     			code = element("code");
     			code.textContent = "div";
     			t6 = text(" setup the proper styling for the markdown and controls\nthe animation of it on the site. Thereore, leave the div information\nas it is and just change the markdown inbetween.");
-    			add_location(h2, file, 1, 0, 167);
-    			add_location(p0, file, 2, 0, 185);
-    			add_location(code, file, 4, 7, 274);
-    			add_location(p1, file, 4, 0, 267);
-    			attr_dev(div, "class", "box svelte-1k9o9tk");
+    			add_location(h2, file, 1, 0, 261);
+    			add_location(p0, file, 2, 0, 279);
+    			add_location(code, file, 4, 7, 368);
+    			add_location(p1, file, 4, 0, 361);
+    			attr_dev(div, "class", "box svelte-lgw0k8");
+    			set_style(div, "border", "" + ctx.styles.borderSize + " solid " + ctx.styles.borderColor);
+    			set_style(div, "border-radius", ctx.styles.borderRadius);
     			set_style(div, "background-color", ctx.styles.divColor);
     			set_style(div, "background-image", ctx.styles.divBackgroundPicture);
     			set_style(div, "color", ctx.styles.textColor);
@@ -787,6 +789,8 @@ var app = (function () {
 
     		p: function update(changed, ctx) {
     			if (changed.styles) {
+    				set_style(div, "border", "" + ctx.styles.borderSize + " solid " + ctx.styles.borderColor);
+    				set_style(div, "border-radius", ctx.styles.borderRadius);
     				set_style(div, "background-color", ctx.styles.divColor);
     				set_style(div, "background-image", ctx.styles.divBackgroundPicture);
     				set_style(div, "color", ctx.styles.textColor);
@@ -913,22 +917,22 @@ var app = (function () {
     			code12 = element("code");
     			code12.textContent = "info.style";
     			t35 = text(" object. You can also turn on/off the sidebar and\nmake the sidebar on the left side or the right side. You can make the site look anyway like.\nAlso, by changing the store style values, you can dynamically change the styling of your site.");
-    			add_location(code0, file$1, 2, 57, 304);
-    			add_location(p0, file$1, 1, 0, 167);
-    			add_location(code1, file$1, 7, 9, 637);
-    			add_location(code2, file$1, 7, 47, 675);
-    			add_location(p1, file$1, 6, 0, 543);
+    			add_location(code0, file$1, 2, 57, 398);
+    			add_location(p0, file$1, 1, 0, 261);
+    			add_location(code1, file$1, 7, 9, 731);
+    			add_location(code2, file$1, 7, 47, 769);
+    			add_location(p1, file$1, 6, 0, 637);
     			attr_dev(code3, "class", "language-sh");
-    			add_location(code3, file$1, 9, 5, 747);
-    			add_location(pre, file$1, 9, 0, 742);
-    			add_location(code4, file$1, 13, 27, 979);
-    			add_location(code5, file$1, 13, 78, 1030);
-    			add_location(code6, file$1, 14, 8, 1069);
-    			add_location(p2, file$1, 12, 0, 865);
-    			add_location(code7, file$1, 16, 60, 1270);
-    			add_location(code8, file$1, 17, 27, 1332);
-    			add_location(code9, file$1, 18, 24, 1421);
-    			add_location(code10, file$1, 19, 4, 1499);
+    			add_location(code3, file$1, 9, 5, 841);
+    			add_location(pre, file$1, 9, 0, 836);
+    			add_location(code4, file$1, 13, 27, 1073);
+    			add_location(code5, file$1, 13, 78, 1124);
+    			add_location(code6, file$1, 14, 8, 1163);
+    			add_location(p2, file$1, 12, 0, 959);
+    			add_location(code7, file$1, 16, 60, 1364);
+    			add_location(code8, file$1, 17, 27, 1426);
+    			add_location(code9, file$1, 18, 24, 1515);
+    			add_location(code10, file$1, 19, 4, 1593);
     			attr_dev(the, "address", "");
     			attr_dev(the, "of", "");
     			attr_dev(the, "the", "");
@@ -937,12 +941,14 @@ var app = (function () {
     			attr_dev(the, "in", "");
     			attr_dev(the, "raw", "");
     			attr_dev(the, "mode", "");
-    			add_location(the, file$1, 15, 11, 1131);
-    			add_location(p3, file$1, 15, 0, 1120);
-    			add_location(code11, file$1, 20, 7, 1561);
-    			add_location(code12, file$1, 21, 27, 1686);
-    			add_location(p4, file$1, 20, 0, 1554);
-    			attr_dev(div, "class", "box svelte-1qf6x3w");
+    			add_location(the, file$1, 15, 11, 1225);
+    			add_location(p3, file$1, 15, 0, 1214);
+    			add_location(code11, file$1, 20, 7, 1655);
+    			add_location(code12, file$1, 21, 27, 1780);
+    			add_location(p4, file$1, 20, 0, 1648);
+    			attr_dev(div, "class", "box svelte-1f7jawt");
+    			set_style(div, "border", "" + ctx.styles.borderSize + " solid " + ctx.styles.borderColor);
+    			set_style(div, "border-radius", ctx.styles.borderRadius);
     			set_style(div, "background-color", ctx.styles.divColor);
     			set_style(div, "background-image", ctx.styles.divBackgroundPicture);
     			set_style(div, "color", ctx.styles.textColor);
@@ -1002,6 +1008,8 @@ var app = (function () {
 
     		p: function update(changed, ctx) {
     			if (changed.styles) {
+    				set_style(div, "border", "" + ctx.styles.borderSize + " solid " + ctx.styles.borderColor);
+    				set_style(div, "border-radius", ctx.styles.borderRadius);
     				set_style(div, "background-color", ctx.styles.divColor);
     				set_style(div, "background-image", ctx.styles.divBackgroundPicture);
     				set_style(div, "color", ctx.styles.textColor);
@@ -6495,19 +6503,24 @@ var app = (function () {
     }
 
     /* src/components/Page.svelte generated by Svelte v3.12.1 */
-    const { Error: Error_1$1, Object: Object_1$1 } = globals;
+    const { Error: Error_1$1 } = globals;
 
     const file$2 = "src/components/Page.svelte";
 
-    // (9:0) {:catch e}
-    function create_catch_block(ctx) {
+    // (19:0) {:catch e}
+    function create_catch_block_1(ctx) {
     	var content, content_intro;
 
     	const block = {
     		c: function create() {
     			content = element("content");
-    			attr_dev(content, "class", "svelte-p5dd26");
-    			add_location(content, file$2, 9, 2, 221);
+    			set_style(content, "border", "" + ctx.styles.borderSize + " solid " + ctx.styles.borderColor);
+    			set_style(content, "border-radius", ctx.styles.borderRadius);
+    			set_style(content, "background-color", ctx.styles.divColor);
+    			set_style(content, "background-image", ctx.styles.divBackgroundPicture);
+    			set_style(content, "color", ctx.styles.textColor);
+    			attr_dev(content, "class", "svelte-qdo8pt");
+    			add_location(content, file$2, 19, 2, 1334);
     		},
 
     		m: function mount(target, anchor) {
@@ -6519,6 +6532,14 @@ var app = (function () {
     			if (changed.errorPage) {
     				content.innerHTML = ctx.errorPage;
     			}
+
+    			if (changed.styles) {
+    				set_style(content, "border", "" + ctx.styles.borderSize + " solid " + ctx.styles.borderColor);
+    				set_style(content, "border-radius", ctx.styles.borderRadius);
+    				set_style(content, "background-color", ctx.styles.divColor);
+    				set_style(content, "background-image", ctx.styles.divBackgroundPicture);
+    				set_style(content, "color", ctx.styles.textColor);
+    			}
     		},
 
     		i: function intro(local) {
@@ -6538,19 +6559,141 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_catch_block.name, type: "catch", source: "(9:0) {:catch e}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_catch_block_1.name, type: "catch", source: "(19:0) {:catch e}", ctx });
     	return block;
     }
 
-    // (5:0) {:then data}
+    // (5:0) {:then dt}
     function create_then_block(ctx) {
+    	var await_block_anchor, promise;
+
+    	let info_1 = {
+    		ctx,
+    		current: null,
+    		token: null,
+    		pending: create_pending_block_1,
+    		then: create_then_block_1,
+    		catch: create_catch_block,
+    		value: 'data',
+    		error: 'e'
+    	};
+
+    	handle_promise(promise = ctx.firstPromise, info_1);
+
+    	const block = {
+    		c: function create() {
+    			await_block_anchor = empty();
+
+    			info_1.block.c();
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert_dev(target, await_block_anchor, anchor);
+
+    			info_1.block.m(target, info_1.anchor = anchor);
+    			info_1.mount = () => await_block_anchor.parentNode;
+    			info_1.anchor = await_block_anchor;
+    		},
+
+    		p: function update(changed, new_ctx) {
+    			ctx = new_ctx;
+    			info_1.ctx = ctx;
+
+    			if (('firstPromise' in changed) && promise !== (promise = ctx.firstPromise) && handle_promise(promise, info_1)) ; else {
+    				info_1.block.p(changed, assign(assign({}, ctx), info_1.resolved));
+    			}
+    		},
+
+    		i: function intro(local) {
+    			transition_in(info_1.block);
+    		},
+
+    		o: noop,
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(await_block_anchor);
+    			}
+
+    			info_1.block.d(detaching);
+    			info_1.token = null;
+    			info_1 = null;
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_then_block.name, type: "then", source: "(5:0) {:then dt}", ctx });
+    	return block;
+    }
+
+    // (14:2) {:catch e}
+    function create_catch_block(ctx) {
+    	var content, content_intro;
+
+    	const block = {
+    		c: function create() {
+    			content = element("content");
+    			set_style(content, "border", "" + ctx.styles.borderSize + " solid " + ctx.styles.borderColor);
+    			set_style(content, "border-radius", ctx.styles.borderRadius);
+    			set_style(content, "background-color", ctx.styles.divColor);
+    			set_style(content, "background-image", ctx.styles.divBackgroundPicture);
+    			set_style(content, "color", ctx.styles.textColor);
+    			attr_dev(content, "class", "svelte-qdo8pt");
+    			add_location(content, file$2, 14, 4, 1012);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert_dev(target, content, anchor);
+    			content.innerHTML = ctx.errorPage;
+    		},
+
+    		p: function update(changed, ctx) {
+    			if (changed.errorPage) {
+    				content.innerHTML = ctx.errorPage;
+    			}
+
+    			if (changed.styles) {
+    				set_style(content, "border", "" + ctx.styles.borderSize + " solid " + ctx.styles.borderColor);
+    				set_style(content, "border-radius", ctx.styles.borderRadius);
+    				set_style(content, "background-color", ctx.styles.divColor);
+    				set_style(content, "background-image", ctx.styles.divBackgroundPicture);
+    				set_style(content, "color", ctx.styles.textColor);
+    			}
+    		},
+
+    		i: function intro(local) {
+    			if (!content_intro) {
+    				add_render_callback(() => {
+    					content_intro = create_in_transition(content, fade, {duration: 500});
+    					content_intro.start();
+    				});
+    			}
+    		},
+
+    		o: noop,
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(content);
+    			}
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_catch_block.name, type: "catch", source: "(14:2) {:catch e}", ctx });
+    	return block;
+    }
+
+    // (10:2) {:then data}
+    function create_then_block_1(ctx) {
     	var content, raw_value = ctx.processData(ctx.data) + "", content_intro;
 
     	const block = {
     		c: function create() {
     			content = element("content");
-    			attr_dev(content, "class", "svelte-p5dd26");
-    			add_location(content, file$2, 5, 2, 127);
+    			set_style(content, "border", "" + ctx.styles.borderSize + " solid " + ctx.styles.borderColor);
+    			set_style(content, "border-radius", ctx.styles.borderRadius);
+    			set_style(content, "background-color", ctx.styles.divColor);
+    			set_style(content, "background-image", ctx.styles.divBackgroundPicture);
+    			set_style(content, "color", ctx.styles.textColor);
+    			attr_dev(content, "class", "svelte-qdo8pt");
+    			add_location(content, file$2, 10, 4, 694);
     		},
 
     		m: function mount(target, anchor) {
@@ -6559,8 +6702,16 @@ var app = (function () {
     		},
 
     		p: function update(changed, ctx) {
-    			if ((changed.promise) && raw_value !== (raw_value = ctx.processData(ctx.data) + "")) {
+    			if ((changed.firstPromise) && raw_value !== (raw_value = ctx.processData(ctx.data) + "")) {
     				content.innerHTML = raw_value;
+    			}
+
+    			if (changed.styles) {
+    				set_style(content, "border", "" + ctx.styles.borderSize + " solid " + ctx.styles.borderColor);
+    				set_style(content, "border-radius", ctx.styles.borderRadius);
+    				set_style(content, "background-color", ctx.styles.divColor);
+    				set_style(content, "background-image", ctx.styles.divBackgroundPicture);
+    				set_style(content, "color", ctx.styles.textColor);
     			}
     		},
 
@@ -6581,12 +6732,12 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_then_block.name, type: "then", source: "(5:0) {:then data}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_then_block_1.name, type: "then", source: "(10:2) {:then data}", ctx });
     	return block;
     }
 
-    // (1:16)    <content in:fade="{{duration: 500}}
-    function create_pending_block(ctx) {
+    // (6:23)      <content in:fade="{{duration: 500}}
+    function create_pending_block_1(ctx) {
     	var content, h2, content_intro;
 
     	const block = {
@@ -6595,10 +6746,15 @@ var app = (function () {
     			h2 = element("h2");
     			h2.textContent = "Loading page...";
     			attr_dev(h2, "id", "waiting");
-    			attr_dev(h2, "class", "svelte-p5dd26");
-    			add_location(h2, file$2, 2, 4, 61);
-    			attr_dev(content, "class", "svelte-p5dd26");
-    			add_location(content, file$2, 1, 2, 19);
+    			attr_dev(h2, "class", "svelte-qdo8pt");
+    			add_location(h2, file$2, 7, 6, 622);
+    			set_style(content, "border", "" + ctx.styles.borderSize + " solid " + ctx.styles.borderColor);
+    			set_style(content, "border-radius", ctx.styles.borderRadius);
+    			set_style(content, "background-color", ctx.styles.divColor);
+    			set_style(content, "background-image", ctx.styles.divBackgroundPicture);
+    			set_style(content, "color", ctx.styles.textColor);
+    			attr_dev(content, "class", "svelte-qdo8pt");
+    			add_location(content, file$2, 6, 4, 362);
     		},
 
     		m: function mount(target, anchor) {
@@ -6606,7 +6762,15 @@ var app = (function () {
     			append_dev(content, h2);
     		},
 
-    		p: noop,
+    		p: function update(changed, ctx) {
+    			if (changed.styles) {
+    				set_style(content, "border", "" + ctx.styles.borderSize + " solid " + ctx.styles.borderColor);
+    				set_style(content, "border-radius", ctx.styles.borderRadius);
+    				set_style(content, "background-color", ctx.styles.divColor);
+    				set_style(content, "background-image", ctx.styles.divBackgroundPicture);
+    				set_style(content, "color", ctx.styles.textColor);
+    			}
+    		},
 
     		i: function intro(local) {
     			if (!content_intro) {
@@ -6625,12 +6789,67 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_pending_block.name, type: "pending", source: "(1:16)    <content in:fade=\"{{duration: 500}}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_pending_block_1.name, type: "pending", source: "(6:23)      <content in:fade=\"{{duration: 500}}", ctx });
+    	return block;
+    }
+
+    // (1:20)    <content in:fade="{{duration: 500}}
+    function create_pending_block(ctx) {
+    	var content, h2, content_intro;
+
+    	const block = {
+    		c: function create() {
+    			content = element("content");
+    			h2 = element("h2");
+    			h2.textContent = "Loading Partials...";
+    			add_location(h2, file$2, 2, 4, 281);
+    			set_style(content, "border", "" + ctx.styles.borderSize + " solid " + ctx.styles.borderColor);
+    			set_style(content, "border-radius", ctx.styles.borderRadius);
+    			set_style(content, "background-color", ctx.styles.divColor);
+    			set_style(content, "background-image", ctx.styles.divBackgroundPicture);
+    			set_style(content, "color", ctx.styles.textColor);
+    			attr_dev(content, "class", "svelte-qdo8pt");
+    			add_location(content, file$2, 1, 2, 23);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert_dev(target, content, anchor);
+    			append_dev(content, h2);
+    		},
+
+    		p: function update(changed, ctx) {
+    			if (changed.styles) {
+    				set_style(content, "border", "" + ctx.styles.borderSize + " solid " + ctx.styles.borderColor);
+    				set_style(content, "border-radius", ctx.styles.borderRadius);
+    				set_style(content, "background-color", ctx.styles.divColor);
+    				set_style(content, "background-image", ctx.styles.divBackgroundPicture);
+    				set_style(content, "color", ctx.styles.textColor);
+    			}
+    		},
+
+    		i: function intro(local) {
+    			if (!content_intro) {
+    				add_render_callback(() => {
+    					content_intro = create_in_transition(content, fade, {duration: 500});
+    					content_intro.start();
+    				});
+    			}
+    		},
+
+    		o: noop,
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(content);
+    			}
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_pending_block.name, type: "pending", source: "(1:20)    <content in:fade=\"{{duration: 500}}", ctx });
     	return block;
     }
 
     function create_fragment$3(ctx) {
-    	var await_block_anchor, promise_1;
+    	var await_block_anchor, promise;
 
     	let info_1 = {
     		ctx,
@@ -6638,12 +6857,12 @@ var app = (function () {
     		token: null,
     		pending: create_pending_block,
     		then: create_then_block,
-    		catch: create_catch_block,
-    		value: 'data',
+    		catch: create_catch_block_1,
+    		value: 'dt',
     		error: 'e'
     	};
 
-    	handle_promise(promise_1 = ctx.promise, info_1);
+    	handle_promise(promise = ctx.lastPromise, info_1);
 
     	const block = {
     		c: function create() {
@@ -6668,7 +6887,7 @@ var app = (function () {
     			ctx = new_ctx;
     			info_1.ctx = ctx;
 
-    			if (('promise' in changed) && promise_1 !== (promise_1 = ctx.promise) && handle_promise(promise_1, info_1)) ; else {
+    			if (('lastPromise' in changed) && promise !== (promise = ctx.lastPromise) && handle_promise(promise, info_1)) ; else {
     				info_1.block.p(changed, assign(assign({}, ctx), info_1.resolved));
     			}
     		},
@@ -6695,25 +6914,25 @@ var app = (function () {
 
     function instance$3($$self, $$props, $$invalidate) {
     	
-     
-      let { params } = $$props;
 
       let converter = null;
       let page = null;
-      let promise = fetchPage(page);
+      let firstPromise;
       let errorPage = '';
       let parts = [];
-      
-      async function fetchPage(page) {
-        if(page !== null) {
-          const site = get_store_value(info);
+      let styles = {};
+      let site = {};
+      let lastPromise;
+
+      async function fetchPage(pg) {
+        if(pg !== null) {
           var address = '';
           if(site.local) {
             address = site.address;
           } else {
             address = site.GitHub;
           }
-          const response = await fetch(address + '/site' + page + ".md");
+          const response = await fetch(address + '/site' + pg + ".md");
           const text = await response.text();
           if(response.ok && (response.status === 200)) {
             if(((text[0] !== '-')&&(text[0] !== '+'))||(text[0] === '<')) {
@@ -6783,27 +7002,29 @@ var app = (function () {
         // This is done by setting a new promise in the promise variable for retrieving
         // the new page information.
         //
-        location.subscribe(value => {
-          $$invalidate('promise', promise = fetchPage(value));
-          page = value;
+        info.subscribe(value => {
+          site = value;
+          $$invalidate('styles', styles = value.styles);
         });
 
-        //
-        // Get the partial templates.
-        //
-        getPartials();
+        location.subscribe(value => {
+          page = value;
+          $$invalidate('lastPromise', lastPromise = getPartials());
+          $$invalidate('firstPromise', firstPromise = fetchPage(page));
+        });
+
       });
 
       async function getPartials() {
         //
         // Get some error page.
         //
-        const site = get_store_value(info);
+        var st = get_store_value(info);
         var address = '';
-        if(site.local) {
-          address = site.address;
+        if(st.local) {
+          address = st.address;
         } else {
-          address = site.GitHub;
+          address = st.GitHub;
         }
         var rep = await fetch(address + '/site/404.md');
         $$invalidate('errorPage', errorPage = await rep.text());
@@ -6811,15 +7032,29 @@ var app = (function () {
         //
         // Get the parts pages.
         //
-        for(const page of site.parts) {
-          var rep = await fetch(address + '/site/parts/' + page);
+        var lastPromise = null;
+        for(var pg of st.parts) {
+          var rep = await fetch(address + '/site/parts/' + pg);
           var partial = await rep.text();
-          window.Handlebars.registerPartial(page, partial);
+          lastPromise = partial;
+          window.Handlebars.registerPartial(pg, partial);
         }
+
+        return lastPromise;
       }
 
       function processData(data) {
         var result = '';
+        
+        //
+        // This should never happen but if it does, then reload.
+        //
+        if(typeof data === 'undefined') return '';
+        
+        if(data[0] === '<') {
+          $$invalidate('firstPromise', firstPromise = fetchPage(page));
+          return '';
+        }
 
         //
         // There are two types of front matter: delimited by three '-' and using a colon,
@@ -6936,50 +7171,35 @@ var app = (function () {
         return result;
       }
 
-    	const writable_props = ['params'];
-    	Object_1$1.keys($$props).forEach(key => {
-    		if (!writable_props.includes(key) && !key.startsWith('$$')) console.warn(`<Page> was created with unknown prop '${key}'`);
-    	});
-
-    	$$self.$set = $$props => {
-    		if ('params' in $$props) $$invalidate('params', params = $$props.params);
-    	};
-
     	$$self.$capture_state = () => {
-    		return { params, converter, page, promise, errorPage, parts };
+    		return {};
     	};
 
     	$$self.$inject_state = $$props => {
-    		if ('params' in $$props) $$invalidate('params', params = $$props.params);
     		if ('converter' in $$props) converter = $$props.converter;
     		if ('page' in $$props) page = $$props.page;
-    		if ('promise' in $$props) $$invalidate('promise', promise = $$props.promise);
+    		if ('firstPromise' in $$props) $$invalidate('firstPromise', firstPromise = $$props.firstPromise);
     		if ('errorPage' in $$props) $$invalidate('errorPage', errorPage = $$props.errorPage);
     		if ('parts' in $$props) parts = $$props.parts;
+    		if ('styles' in $$props) $$invalidate('styles', styles = $$props.styles);
+    		if ('site' in $$props) site = $$props.site;
+    		if ('lastPromise' in $$props) $$invalidate('lastPromise', lastPromise = $$props.lastPromise);
     	};
 
-    	return { params, promise, errorPage, processData };
+    	return {
+    		firstPromise,
+    		errorPage,
+    		styles,
+    		lastPromise,
+    		processData
+    	};
     }
 
     class Page extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$3, create_fragment$3, safe_not_equal, ["params"]);
+    		init(this, options, instance$3, create_fragment$3, safe_not_equal, []);
     		dispatch_dev("SvelteRegisterComponent", { component: this, tagName: "Page", options, id: create_fragment$3.name });
-
-    		const { ctx } = this.$$;
-    		const props = options.props || {};
-    		if (ctx.params === undefined && !('params' in props)) {
-    			console.warn("<Page> was created without expected prop 'params'");
-    		}
-    	}
-
-    	get params() {
-    		throw new Error_1$1("<Page>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	set params(value) {
-    		throw new Error_1$1("<Page>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
 

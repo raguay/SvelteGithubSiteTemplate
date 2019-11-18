@@ -16,3 +16,4 @@ index. You have complete control over it.
 I'm testing a partial after this paragraph:
 
 {{> 'test.html'}}
+
