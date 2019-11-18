@@ -45,10 +45,6 @@ for your website, you just add markdown pages and edit the markdown indexes to p
 You do not need to recompile each time you make a change. You just recompile whenever you change
 one of the files in the `src` directory.
 
-I've also included a [Mask](https://github.com/jakedeichert/mask) make file for the commands `mask dev` to run the 
-development server and `mask build` to make the full website in the `launch` 
-directory.
-
 Have fun! If you create a site using this template, let me know and I'll add it to my list.
 
 ## Sites using Svelte GitHub Website Template
