@@ -1,10 +1,14 @@
 {#await promise}
   <content in:fade="{{duration: 500}}">
-    <p id='waiting'>Loading page...</p>
+    <h2 id='waiting'>Loading page...</h2>
   </content>
 {:then data}
   <content in:fade="{{duration: 500}}">
     {@html processData(data)}
+  </content>
+{:catch e}
+  <content in:fade="{{duration: 500}}">
+    {@html errorPage}
   </content>
 {/await}
 
@@ -48,7 +52,9 @@
   let converter = null;
   let page = null;
   let promise = fetchPage(page);
-
+  let errorPage = '';
+  let parts = [];
+  
   async function fetchPage(page) {
     if(page !== null) {
       const site = get(info);
@@ -60,10 +66,17 @@
       }
       const response = await fetch(address + '/site' + page + ".md");
       const text = await response.text();
-      if(response.ok) {
-        return text;
+      if(response.ok && (response.status === 200)) {
+        if(((text[0] !== '-')&&(text[0] !== '+'))||(text[0] === '<')) {
+          //
+          // It's not a proper header. Treat as an error.
+          //
+          return errorPage
+        } else {
+          return text;
+        }
       } else {
-        throw new Error(text);
+        return errorPage
       }
     } else {
       //
@@ -125,7 +138,36 @@
       promise = fetchPage(value);
       page = value;
     });
+
+    //
+    // Get the partial templates.
+    //
+    getPartials();
   });
+
+  async function getPartials() {
+    //
+    // Get some error page.
+    //
+    const site = get(info);
+    var address = '';
+    if(site.local) {
+      address = site.address;
+    } else {
+      address = site.GitHub;
+    }
+    var rep = await fetch(address + '/site/404.md');
+    errorPage = await rep.text();
+
+    //
+    // Get the parts pages.
+    //
+    for(const page of site.parts) {
+      var rep = await fetch(address + '/site/parts/' + page);
+      var partial = await rep.text();
+      window.Handlebars.registerPartial(page, partial);
+    }
+  }
 
   function processData(data) {
     var result = '';
@@ -220,8 +262,19 @@
     // Run the body through Handlebars.
     //
     var bodyTemplate = window.Handlebars.compile(body.join('\n'));
-    var newBody = bodyTemplate(hdata);
-    
+    var trying = true;
+    var newBody = '';
+
+    //
+    // If the partials are called before loaded, running the template will throw
+    // an error. Catch it and tell the user to move to another page and back.
+    //
+    try {
+      newBody = bodyTemplate(hdata);
+    } catch(e) {
+      newBody = "<h1>Page not ready...</h1><p>Please don't reload this page. Go to another page and come back.</p>";
+    }
+
     //
     // Convert the data given to HTML.
     //

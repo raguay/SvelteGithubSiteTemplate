@@ -1,22 +1,33 @@
 ```js exec
   import { fade } from 'svelte/transition';
+  import { onMount } from 'svelte';
+  import { info } from '../store/infoStore.js';
+ 
+  let styles = {};
+
+  onMount(() => {
+    //
+    // Subscribe to the information store to get the site information.
+    //
+    info.subscribe((value) => {
+      styles = value.styles;
+    });
+  });
+
+
 ```
 
 ```css style
   .box {
-    width: 85%;
-    background-color: #ECDAAC;
-    color: black;
+    width: 100%;
     margin: auto;
-    border-radius: 10px;
-    border: 5px solid #AA7942;
     padding: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
   }
 ```
 
-<div class="box" in:fade="{{duration: 500}}">
+<div class="box" style="background-color: {styles.divColor}; background-image: {styles.divBackgroundPicture}; color: {styles.textColor};" in:fade="{{duration: 500}}">
 
 ## About Us
 
@@ -24,7 +35,8 @@ This is a markdown file with information about you. Change as
 you see fit.
 
 The `div` setup the proper styling for the markdown and controls
-the animation of it on the site.
+the animation of it on the site. Thereore, leave the div information
+as it is and just change the markdown inbetween.
 
 </div>
 

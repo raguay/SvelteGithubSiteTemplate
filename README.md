@@ -36,7 +36,7 @@ To launch your new site, you have to have a GitHub pages account. Once that is s
 directory as your repository for that account. To upload the site, you will simply run:
 
 ```sh
-git commant -am "your message"
+git commit -am "your message"
 git push
 ```
 
@@ -45,10 +45,18 @@ for your website, you just add markdown pages and edit the markdown indexes to p
 You do not need to recompile each time you make a change. You just recompile whenever you change
 one of the files in the `src` directory.
 
+I've also included a [Mask](https://github.com/jakedeichert/mask) make file for the commands `mask dev` to run the 
+development server and `mask build` to make the full website in the `launch` 
+directory.
+
 Have fun! If you create a site using this template, let me know and I'll add it to my list.
 
 ## Sites using Svelte GitHub Website Template
 
 - [Custom Computer Tools](https://customct.com)
 
+## Changes made since initial release:
 
+### 11/18/2019
+
+- Added partials, styles controled by the `info.styles` Store, and various bug fixes.

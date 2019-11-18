@@ -1,4 +1,4 @@
-<div id='blog'>
+<div id='blog' style="background-color: {styles.divColor}; background-image: {styles.divBackgroundPicture}; color: {styles.textColor};">
   <h4>Blog Links</h4>
   <a href='/#/blog/my-first-post'>My First Post</a>
 </div>
@@ -23,5 +23,19 @@
 </style>
 
 <script>
+  import { onMount } from 'svelte';
+  import { info } from '../store/infoStore.js';
+ 
+  let styles = {};
+
+  onMount(() => {
+    //
+    // Subscribe to the information store to get the site information.
+    //
+    info.subscribe((value) => {
+      styles = value.styles;
+    });
+  });
+
 </script>
 

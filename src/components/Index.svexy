@@ -1,28 +1,38 @@
 ```js exec
   import { fade } from 'svelte/transition';
+  import { onMount } from 'svelte';
+  import { info } from '../store/infoStore.js';
+ 
+  let styles = {};
+
+  onMount(() => {
+    //
+    // Subscribe to the information store to get the site information.
+    //
+    info.subscribe((value) => {
+      styles = value.styles;
+    });
+  });
+
 ```
 
 ```css style
   .box {
-    width: 85%;
-    background-color: #ECDAAC;
-    color: black;
+    width: 100%;
     margin: auto;
-    border-radius: 10px;
-    border: 5px solid #AA7942;
     padding: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
   }
 ```
 
-<div class="box" in:fade="{{duration: 500}}">
+<div class="box" style="background-color: {styles.divColor}; background-image: {styles.divBackgroundPicture}; color: {styles.textColor};" in:fade="{{duration: 500}}">
 
 This markdown file contains the front page for your site. Everything in this
 file will be in the main content area. This file and the `About.svexy` file are
-compiled into a Svelte element. Therefore, when the user selects links to these
-pages, they will appear instantly as they are already loaded into the user's 
-browser.
+compiled into a Svelte element and loaded when any page is loaded. Therefore, when 
+the user selects links to these pages, they will appear instantly as they are 
+already loaded into the user's browser.
 
 The template is setup to run in development mode. To run from GitHub, you need to
 edit the `infoStore.js` file in the `store` directory. The items you have to change
@@ -43,6 +53,9 @@ GitHub, and then click the `raw` button. The address in your browser should have
 the full address to the `site` directory in raw mode. Copy and paste that address into
 the `infoStore.js` file as mentioned above.
 
-
+The `infoStore.js` file also contains the site's styling configuration. You can change the
+look of your site from the `info.style` object. You can also turn on/off the sidebar and
+make the sidebar on the left side or the right side. You can make the site look anyway like. 
+Also, by changing the store style values, you can dynamically change the styling of your site.
 </div>
 
