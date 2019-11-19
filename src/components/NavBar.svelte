@@ -46,9 +46,11 @@
     //
     // Subscribe to the information store to get the site information.
     //
-    info.subscribe((value) => {
+    const unsubscribeInfo = info.subscribe((value) => {
       styles = value.styles;
     });
+
+    return () => { unsubscribeInfo(); };
   });
 
 </script>

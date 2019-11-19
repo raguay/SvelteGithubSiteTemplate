@@ -130,13 +130,15 @@
     //
     // Subscribe to the information store to get the site information.
     //
-    info.subscribe((value) => {
+    const unsubscribeInfo = info.subscribe((value) => {
       siteName = value.siteName;
       byLine = value.byLine;
       styles = value.styles;
 
       document.body.style.backgroundColor = styles.backgroundColor;
     });
+
+    return () => { unsubscribeInfo(); };
   });
 </script>
 

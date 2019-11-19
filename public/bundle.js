@@ -827,9 +827,11 @@ var app = (function () {
         //
         // Subscribe to the information store to get the site information.
         //
-        info.subscribe((value) => {
+        const unsubscribeInfo = info.subscribe((value) => {
           $$invalidate('styles', styles = value.styles);
         });
+        
+        return () => { unsubscribeInfo(); };
       });
 
     	$$self.$capture_state = () => {
@@ -1046,9 +1048,11 @@ var app = (function () {
         //
         // Subscribe to the information store to get the site information.
         //
-        info.subscribe((value) => {
+        const unsubscribeInfo = info.subscribe((value) => {
           $$invalidate('styles', styles = value.styles);
         });
+
+        return () => { unsubscribeInfo(); };
       });
 
     	$$self.$capture_state = () => {
@@ -6924,6 +6928,16 @@ var app = (function () {
       let site = {};
       let lastPromise;
 
+      //
+      // Function:  fetchPage
+      //
+      // Description: This function is used to get the markdown page from the 
+      //              server. It doesn't process the information, but does try
+      //              to determine if the page doesn't exist or not.
+      //
+      // Inputs:
+      //              pg    The page to get
+      //
       async function fetchPage(pg) {
         if(pg !== null) {
           var address = '';
@@ -6962,6 +6976,14 @@ var app = (function () {
         }
       }
 
+      //
+      // Function:  onMount
+      //
+      // Description:  This function is ran when the component is mounted. This
+      //               is ran only once and is used to setup libraries used to 
+      //               process the pages, subscribing to stores, and loading
+      //               partials.
+      //
       onMount(() => {
         showdown.setFlavor('github');
         showdown.setOption('simpleLineBreaks',false);
@@ -7002,22 +7024,24 @@ var app = (function () {
         // This is done by setting a new promise in the promise variable for retrieving
         // the new page information.
         //
-        info.subscribe(value => {
+        const unsubscribeInfo = info.subscribe(value => {
           site = value;
           $$invalidate('styles', styles = value.styles);
         });
 
-        location.subscribe(value => {
+        const unsubscribeLocation = location.subscribe(value => {
           page = value;
           $$invalidate('lastPromise', lastPromise = getPartials());
           $$invalidate('firstPromise', firstPromise = fetchPage(page));
         });
-
+        
+        return () => { unsubscribeLocation(); unsubscribeInfo(); };
       });
 
       async function getPartials() {
         //
-        // Get some error page.
+        // Get some error page. I have to get the site info
+        // since I can't be sure the subscription had fired yet.
         //
         var st = get_store_value(info);
         var address = '';
@@ -7336,9 +7360,11 @@ var app = (function () {
         //
         // Subscribe to the information store to get the site information.
         //
-        info.subscribe((value) => {
+        const unsubscribeInfo = info.subscribe((value) => {
           styles = value.styles;
         });
+
+        return () => { unsubscribeInfo(); };
       });
 
     	let { $$slots = {}, $$scope } = $$props;
@@ -7435,9 +7461,11 @@ var app = (function () {
         //
         // Subscribe to the information store to get the site information.
         //
-        info.subscribe((value) => {
+        const unsubscribeInfo = info.subscribe((value) => {
           $$invalidate('styles', styles = value.styles);
         });
+
+        return () => { unsubscribeInfo(); };
       });
 
     	$$self.$capture_state = () => {
@@ -7784,9 +7812,11 @@ var app = (function () {
         //
         // Subscribe to the information store to get the site information.
         //
-        info.subscribe((value) => {
+        const unsubscribeInfo = info.subscribe((value) => {
           $$invalidate('styles', styles = value.styles);
         });
+
+        return () => { unsubscribeInfo(); };
       });
 
     	$$self.$capture_state = () => {
@@ -7977,9 +8007,11 @@ var app = (function () {
         //
         // Subscribe to the information store to get the site information.
         //
-        info.subscribe((value) => {
+        const unsubscribeInfo = info.subscribe((value) => {
           $$invalidate('styles', styles = value.styles);
         });
+
+        return () => { unsubscribeInfo(); };
       });
 
     	$$self.$capture_state = () => {
@@ -8083,9 +8115,11 @@ var app = (function () {
         //
         // Subscribe to the information store to get the site information.
         //
-        info.subscribe((value) => {
+        const unsubscribeInfo = info.subscribe((value) => {
           $$invalidate('styles', styles = value.styles);
         });
+
+        return () => { unsubscribeInfo(); };
       });
 
     	$$self.$capture_state = () => {
@@ -8435,13 +8469,15 @@ var app = (function () {
         //
         // Subscribe to the information store to get the site information.
         //
-        info.subscribe((value) => {
+        const unsubscribeInfo = info.subscribe((value) => {
           $$invalidate('siteName', siteName = value.siteName);
           $$invalidate('byLine', byLine = value.byLine);
           $$invalidate('styles', styles = value.styles);
 
           document.body.style.backgroundColor = styles.backgroundColor;
         });
+
+        return () => { unsubscribeInfo(); };
       });
 
     	$$self.$capture_state = () => {

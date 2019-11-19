@@ -61,6 +61,16 @@
   let site = {};
   let lastPromise;
 
+  //
+  // Function:  fetchPage
+  //
+  // Description: This function is used to get the markdown page from the 
+  //              server. It doesn't process the information, but does try
+  //              to determine if the page doesn't exist or not.
+  //
+  // Inputs:
+  //              pg    The page to get
+  //
   async function fetchPage(pg) {
     if(pg !== null) {
       var address = '';
@@ -99,6 +109,14 @@
     }
   }
 
+  //
+  // Function:  onMount
+  //
+  // Description:  This function is ran when the component is mounted. This
+  //               is ran only once and is used to setup libraries used to 
+  //               process the pages, subscribing to stores, and loading
+  //               partials.
+  //
   onMount(() => {
     showdown.setFlavor('github');
     showdown.setOption('simpleLineBreaks',false);
@@ -139,22 +157,24 @@
     // This is done by setting a new promise in the promise variable for retrieving
     // the new page information.
     //
-    info.subscribe(value => {
+    const unsubscribeInfo = info.subscribe(value => {
       site = value;
       styles = value.styles;
     });
 
-    location.subscribe(value => {
+    const unsubscribeLocation = location.subscribe(value => {
       page = value;
       lastPromise = getPartials();
       firstPromise = fetchPage(page);
     });
-
+    
+    return () => { unsubscribeLocation(); unsubscribeInfo(); };
   });
 
   async function getPartials() {
     //
-    // Get some error page.
+    // Get some error page. I have to get the site info
+    // since I can't be sure the subscription had fired yet.
     //
     var st = get(info);
     var address = '';
