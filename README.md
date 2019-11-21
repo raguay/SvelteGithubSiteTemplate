@@ -16,7 +16,6 @@ To get started, copy the template to your system using:
 npx degit raguay/SvelteGithubSiteTemplate <name of your project directory>
 cd <name of your project directory>
 npm install
-bower install
 ```
 
 This template makes use of [Mask](https://github.com/jakedeichert/mask) to build the project. To run
@@ -26,11 +25,22 @@ the development environment, you type:
 mask dev
 ```
 
+or you can just use npm to start the development server: 
+
+```sh
+npm run dev
+```
+
 To compile the site into the `launch` folder, you type:
 
 ```sh
 mask build 'your commit message'
 ```
+
+The mask file, `maskfile.md`, has a lot more work that 
+it does for the building process. You can examine this file 
+to see what all it does. If you don't have Mask on your system, 
+simply run each command found in the file under `## build` heading.
 
 Run the template in development mode and start making changes. The basics in there will
 help you to know what to do.
