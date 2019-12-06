@@ -1,10 +1,10 @@
 import { writable } from 'svelte/store';
 
 export const info = writable({
-  siteName: 'Svelte Based Website on GitHub',
-  byLine: 'Great framework for making websites.',
+  siteName: 'Svelte Website Template',
+  byLine: 'For creating a great website from GitHub Pages.',
   address: 'http://localhost:5000',
-  GitHub: '',
+  GitHub: 'https://raw.githubusercontent.com/',
   parts: ['test.html'],
   local: true,
   styles: {
@@ -19,7 +19,10 @@ export const info = writable({
     font: '20px Times New Romand, Arial',
     headerFont: '20px Verdana, Arial',
     showSideBar: true,
-    sideBarLeft: false
+    sideBarLeft: false,
+    widthLogo: 920,
+    widthNavbar: 700,
+    widthSidebar: 900
   }
 });
 

@@ -1,14 +1,20 @@
 <svelte:head>
-  <title>{siteName}</title>
+  <title>{siteName + seoMeta.addTitle}</title>
   <link rel='icon' type='image/png' href='/imgs/favicon.png'>
+  <meta name="robots" content="{seoMeta.robot}">
+  <meta name="description" content="{seoMeta.description}">
 </svelte:head>
+
+<svelte:window on:resize={winResize} bind:innerWidth={winWidth} />
 
 <div id='page' style="background-color: {styles.backgroundColor}; font: {styles.font};">
   <header style="background-color: {styles.divBackgroundColor}; background-image: {styles.headerBackgroundPicture}; 
   border: {styles.borderSize} solid {styles.borderColor}; border-radius: {styles.borderRadius};
   color: {styles.textColor}; font: {styles.headerFont};">
-    <Logo />
-    <div id='title'>
+    {#if showLogo }
+      <Logo />
+    {/if}
+    <div id='title' style="width: {showLogo ? 'auto' : '100%'};">
       <h1>{siteName}</h1>
       <h3>{byLine}</h3>
     </div>
@@ -17,11 +23,11 @@
   </header>
   <NavBar />
   <div id='main' >
-    {#if styles.showSideBar && styles.sideBarLeft}
+    {#if styles.showSideBar && styles.sideBarLeft && sidebarON}
       <Sidebar />
     {/if}
     <Router {routes} />
-    {#if styles.showSideBar && !styles.sideBarLeft}
+    {#if styles.showSideBar && !styles.sideBarLeft && sidebarON}
       <Sidebar />
     {/if}
   </div>
@@ -51,6 +57,12 @@
     border-radius: 10px;
     border: 5px solid #AA7942;
     padding: 10px;
+    flex-shrink: 0;
+  }
+
+  Router {
+    margin: 0px;
+    padding: 0px;
   }
 
   #spacer {
@@ -64,8 +76,8 @@
     flex-direction: column;
     text-align: center;
     align-content: center;
-    width: 100%;
-  }
+    flex-shrink: 0;
+ }
 
   #logo {
     width: 100px;
@@ -99,6 +111,9 @@
   import NavBar from './components/NavBar.svelte';
   import Footer from './components/Footer.svelte';
   import { info } from './store/infoStore.js';
+  import { seo } from './store/SEOstore.js';
+  import { showSidebar } from './store/showSidebar.js';
+  import { showNavbar } from './store/showNavbar.js';
   import Router, { link } from 'svelte-spa-router';
   import active from 'svelte-spa-router/active';
 
@@ -125,6 +140,10 @@
   let siteName = '';
   let byLine = '';
   let styles = {};
+  let seoMeta = {};
+  let winWidth = 0;
+  let sidebarON = true;
+  let showLogo = true;
 
   onMount(() => {
     //
@@ -134,11 +153,46 @@
       siteName = value.siteName;
       byLine = value.byLine;
       styles = value.styles;
-
       document.body.style.backgroundColor = styles.backgroundColor;
     });
 
-    return () => { unsubscribeInfo(); };
+    const unsubscribeSEO = seo.subscribe((value) => {
+      seoMeta = value;
+    });
+   
+    winResize({});
+    return () => {
+      unsubsribeInfo();
+      unsubscribeSEO();
+    };
   });
+
+  function winResize(e) {
+    //
+    // Determine if we will show the sidebar or not.
+    //
+    if(winWidth < styles.widthSidebar) {
+      sidebarON = false;
+    } else {
+      sidebarON = true;
+    }
+
+    //
+    // Tell all subscribers the news.
+    //
+    showSidebar.set(sidebarON);
+
+    if(winWidth < styles.widthLogo) {
+      showLogo = false;
+    } else {
+      showLogo = true;
+    }
+
+    if(winWidth < styles.widthNavbar) {
+      showNavbar.set(false);
+    } else {
+      showNavbar.set(true);
+    }
+  }
 </script>
 
