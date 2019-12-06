@@ -56,6 +56,8 @@ one of the files in the `src` directory. But, the `mask build` command does reco
 just to make sure everything is in order. You can just add markdown files and do the git commit and push 
 commands yourself on the command line.
 
+I have a [tutorial](http://www.customct.com/#/tutorials/svelteweb/using-template) on using this template. Check it out.
+
 Have fun! If you create a site using this template, let me know and I'll add it to my list.
 
 ## Sites using Svelte GitHub Website Template
@@ -63,6 +65,11 @@ Have fun! If you create a site using this template, let me know and I'll add it 
 - [Custom Computer Tools](https://customct.com)
 
 ## Changes made since initial release:
+
+### 12/06/2019
+
+- Added responsiveness to the design.
+- Fixed several bugs.
 
 ### 11/19/2019
 
