@@ -207,8 +207,7 @@
     if(typeof data === 'undefined') return '';
     
     if(data[0] === '<') {
-      firstPromise = fetchPage(page);
-      return '';
+      return data;
     }
 
     //
