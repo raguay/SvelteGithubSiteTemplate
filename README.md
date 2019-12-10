@@ -66,6 +66,12 @@ Have fun! If you create a site using this template, let me know and I'll add it 
 
 ## Changes made since initial release:
 
+### 12/10/2019
+
+- Added Theming menu option
+- Added dropdown menus
+- Fixed many bugs and removed redundant code.
+
 ### 12/06/2019
 
 - Added responsiveness to the design.
