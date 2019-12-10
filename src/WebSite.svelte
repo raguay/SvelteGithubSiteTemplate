@@ -1,33 +1,37 @@
 <svelte:head>
-  <title>{siteName + seoMeta.addTitle}</title>
+  <title>{$info.siteName + $seo.addTitle}</title>
   <link rel='icon' type='image/png' href='/imgs/favicon.png'>
-  <meta name="robots" content="{seoMeta.robot}">
-  <meta name="description" content="{seoMeta.description}">
+  <meta name="robots" content="{$seo.robot}">
+  <meta name="description" content="{$seo.description}">
 </svelte:head>
 
 <svelte:window on:resize={winResize} bind:innerWidth={winWidth} />
 
-<div id='page' style="background-color: {styles.backgroundColor}; font: {styles.font};">
-  <header style="background-color: {styles.divBackgroundColor}; background-image: {styles.headerBackgroundPicture}; 
-  border: {styles.borderSize} solid {styles.borderColor}; border-radius: {styles.borderRadius};
-  color: {styles.textColor}; font: {styles.headerFont};">
+<div id='page' style="background-color: {$info.styles.backgroundColor};
+                      font: {$info.styles.font};">
+  <header style="background-color: {$info.styles.divColor}; 
+                 background-image: {$info.styles.headerBackgroundPicture}; 
+                 border: {$info.styles.borderSize} solid {$info.styles.borderColor}; 
+                 border-radius: {$info.styles.borderRadius};
+                 color: {$info.styles.textColor}; 
+                 font: {$info.styles.headerFont};">
     {#if showLogo }
       <Logo />
     {/if}
     <div id='title' style="width: {showLogo ? 'auto' : '100%'};">
-      <h1>{siteName}</h1>
-      <h3>{byLine}</h3>
+      <h1>{$info.siteName}</h1>
+      <h3>{$info.byLine}</h3>
     </div>
     <div id='spacer'>
     </div>
   </header>
   <NavBar />
   <div id='main' >
-    {#if styles.showSideBar && styles.sideBarLeft && sidebarON}
+    {#if $info.styles.sideBarLeft && $showSidebar}
       <Sidebar />
     {/if}
     <Router {routes} />
-    {#if styles.showSideBar && !styles.sideBarLeft && sidebarON}
+    {#if !$info.styles.sideBarLeft && $showSidebar}
       <Sidebar />
     {/if}
   </div>
@@ -44,18 +48,14 @@
 
   :global(a.active) {
     color: #155393 !important;
-    text-decoration-color: #155393;
+    text-decoration-color: #155393 !important;
   }
 
   header {
     display: flex;
     flex-direction: row;
     width: 85%;
-    background-color: #ECDAAC;
-    color: black;
     margin: auto;
-    border-radius: 10px;
-    border: 5px solid #AA7942;
     padding: 10px;
     flex-shrink: 0;
   }
@@ -137,30 +137,23 @@
     '*': Page
   }
 
-  let siteName = '';
-  let byLine = '';
-  let styles = {};
-  let seoMeta = {};
   let winWidth = 0;
-  let sidebarON = true;
   let showLogo = true;
-
+  let savedInfo = {};
+  
   onMount(() => {
     //
     // Subscribe to the information store to get the site information.
     //
     const unsubscribeInfo = info.subscribe((value) => {
-      siteName = value.siteName;
-      byLine = value.byLine;
-      styles = value.styles;
-      document.body.style.backgroundColor = styles.backgroundColor;
+      savedInfo = value;
+      document.body.style.backgroundColor = value.styles.backgroundColor;
+      winResize({});
     });
 
     const unsubscribeSEO = seo.subscribe((value) => {
-      seoMeta = value;
     });
-   
-    winResize({});
+
     return () => {
       unsubsribeInfo();
       unsubscribeSEO();
@@ -171,24 +164,25 @@
     //
     // Determine if we will show the sidebar or not.
     //
-    if(winWidth < styles.widthSidebar) {
-      sidebarON = false;
+    if(savedInfo.styles.showSideBar && (winWidth > savedInfo.styles.widthSidebar)) {
+      showSidebar.set(true);
     } else {
-      sidebarON = true;
+      showSidebar.set(false);
     }
 
     //
-    // Tell all subscribers the news.
+    // Determine to show the logo or not.
     //
-    showSidebar.set(sidebarON);
-
-    if(winWidth < styles.widthLogo) {
+    if(winWidth < savedInfo.styles.widthLogo) {
       showLogo = false;
     } else {
       showLogo = true;
     }
 
-    if(winWidth < styles.widthNavbar) {
+    //
+    // Determine if we show the navigation bar or not.
+    //
+    if(winWidth < savedInfo.styles.widthNavbar) {
       showNavbar.set(false);
     } else {
       showNavbar.set(true);

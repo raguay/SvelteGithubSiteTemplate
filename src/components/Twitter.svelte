@@ -14,19 +14,18 @@
 <script>
   import { onMount } from 'svelte';
   import { info } from '../store/infoStore.js';
- 
-  let styles = {};
-
+  
   onMount(() => {
     //
     // Subscribe to the information store to get the site information.
     //
-    const unsubscribeInfo = info.subscribe((value) => {
-      styles = value.styles;
-    });
+    const unsubscribeInfo = info.subscribe(async (value) => {
+      if(typeof window.twttr !== 'undefined') await window.twttr.widgets.load();
+  });
 
     return () => { unsubscribeInfo(); };
   });
 
 
 </script>
+

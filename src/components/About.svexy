@@ -3,14 +3,11 @@
   import { onMount } from 'svelte';
   import { info } from '../store/infoStore.js';
  
-  let styles = {};
-
   onMount(() => {
     //
     // Subscribe to the information store to get the site information.
     //
     const unsubscribeInfo = info.subscribe((value) => {
-      styles = value.styles;
     });
     
     return () => { unsubscribeInfo(); };
@@ -29,7 +26,11 @@
   }
 ```
 
-<div class="box" style="border: {styles.borderSize} solid {styles.borderColor}; border-radius: {styles.borderRadius}; background-color: {styles.divColor}; background-image: {styles.divBackgroundPicture}; color: {styles.textColor};" in:fade="{{duration: 500}}">
+<div class="box" style="border: {$info.styles.borderSize} solid {$info.styles.borderColor}; 
+                        border-radius: {$info.styles.borderRadius}; 
+                        background-color: {$info.styles.divColor};
+                        background-image: {$info.styles.divBackgroundPicture};
+                        color: {$info.styles.textColor};" in:fade="{{duration: 500}}">
 
 ## About Us
 

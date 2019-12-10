@@ -131,6 +131,13 @@ var app = (function () {
         node.addEventListener(event, handler, options);
         return () => node.removeEventListener(event, handler, options);
     }
+    function prevent_default(fn) {
+        return function (event) {
+            event.preventDefault();
+            // @ts-ignore
+            return fn.call(this, event);
+        };
+    }
     function attr(node, attribute, value) {
         if (value == null)
             node.removeAttribute(attribute);
@@ -749,6 +756,8 @@ var app = (function () {
         textColor: 'black',
         font: '20px Times New Romand, Arial',
         headerFont: '20px Verdana, Arial',
+        navFontSize: '24px',
+        navHoverColor: 'blue',
         showSideBar: true,
         sideBarLeft: false,
         widthLogo: 920,
@@ -778,16 +787,16 @@ var app = (function () {
     			code = element("code");
     			code.textContent = "div";
     			t6 = text(" setup the proper styling for the markdown and controls\nthe animation of it on the site. Thereore, leave the div information\nas it is and just change the markdown inbetween.");
-    			add_location(h2, file, 1, 0, 261);
-    			add_location(p0, file, 2, 0, 279);
-    			add_location(code, file, 4, 7, 368);
-    			add_location(p1, file, 4, 0, 361);
+    			add_location(h2, file, 5, 0, 395);
+    			add_location(p0, file, 6, 0, 413);
+    			add_location(code, file, 8, 7, 502);
+    			add_location(p1, file, 8, 0, 495);
     			attr_dev(div, "class", "box svelte-wu3glg");
-    			set_style(div, "border", "" + ctx.styles.borderSize + " solid " + ctx.styles.borderColor);
-    			set_style(div, "border-radius", ctx.styles.borderRadius);
-    			set_style(div, "background-color", ctx.styles.divColor);
-    			set_style(div, "background-image", ctx.styles.divBackgroundPicture);
-    			set_style(div, "color", ctx.styles.textColor);
+    			set_style(div, "border", "" + ctx.$info.styles.borderSize + " solid " + ctx.$info.styles.borderColor);
+    			set_style(div, "border-radius", ctx.$info.styles.borderRadius);
+    			set_style(div, "background-color", ctx.$info.styles.divColor);
+    			set_style(div, "background-image", ctx.$info.styles.divBackgroundPicture);
+    			set_style(div, "color", ctx.$info.styles.textColor);
     			add_location(div, file, 0, 0, 0);
     		},
 
@@ -808,12 +817,12 @@ var app = (function () {
     		},
 
     		p: function update(changed, ctx) {
-    			if (changed.styles) {
-    				set_style(div, "border", "" + ctx.styles.borderSize + " solid " + ctx.styles.borderColor);
-    				set_style(div, "border-radius", ctx.styles.borderRadius);
-    				set_style(div, "background-color", ctx.styles.divColor);
-    				set_style(div, "background-image", ctx.styles.divBackgroundPicture);
-    				set_style(div, "color", ctx.styles.textColor);
+    			if (changed.$info) {
+    				set_style(div, "border", "" + ctx.$info.styles.borderSize + " solid " + ctx.$info.styles.borderColor);
+    				set_style(div, "border-radius", ctx.$info.styles.borderRadius);
+    				set_style(div, "background-color", ctx.$info.styles.divColor);
+    				set_style(div, "background-image", ctx.$info.styles.divBackgroundPicture);
+    				set_style(div, "color", ctx.$info.styles.textColor);
     			}
     		},
 
@@ -839,16 +848,18 @@ var app = (function () {
     }
 
     function instance($$self, $$props, $$invalidate) {
+    	let $info;
+
+    	validate_store(info, 'info');
+    	component_subscribe($$self, info, $$value => { $info = $$value; $$invalidate('$info', $info); });
+
     	
      
-      let styles = {};
-
       onMount(() => {
         //
         // Subscribe to the information store to get the site information.
         //
         const unsubscribeInfo = info.subscribe((value) => {
-          $$invalidate('styles', styles = value.styles);
         });
         
         return () => { unsubscribeInfo(); };
@@ -859,10 +870,10 @@ var app = (function () {
     	};
 
     	$$self.$inject_state = $$props => {
-    		if ('styles' in $$props) $$invalidate('styles', styles = $$props.styles);
+    		if ('$info' in $$props) info.set($info);
     	};
 
-    	return { styles };
+    	return { $info };
     }
 
     class About extends SvelteComponentDev {
@@ -939,22 +950,22 @@ var app = (function () {
     			code12 = element("code");
     			code12.textContent = "info.style";
     			t35 = text(" object. You can also turn on/off the sidebar and\nmake the sidebar on the left side or the right side. You can make the site look anyway like.\nAlso, by changing the store style values, you can dynamically change the styling of your site.");
-    			add_location(code0, file$1, 2, 57, 398);
-    			add_location(p0, file$1, 1, 0, 261);
-    			add_location(code1, file$1, 7, 9, 731);
-    			add_location(code2, file$1, 7, 47, 769);
-    			add_location(p1, file$1, 6, 0, 637);
+    			add_location(code0, file$1, 5, 57, 508);
+    			add_location(p0, file$1, 4, 0, 371);
+    			add_location(code1, file$1, 10, 9, 841);
+    			add_location(code2, file$1, 10, 47, 879);
+    			add_location(p1, file$1, 9, 0, 747);
     			attr_dev(code3, "class", "language-sh");
-    			add_location(code3, file$1, 9, 5, 841);
-    			add_location(pre, file$1, 9, 0, 836);
-    			add_location(code4, file$1, 13, 27, 1073);
-    			add_location(code5, file$1, 13, 78, 1124);
-    			add_location(code6, file$1, 14, 8, 1163);
-    			add_location(p2, file$1, 12, 0, 959);
-    			add_location(code7, file$1, 16, 60, 1364);
-    			add_location(code8, file$1, 17, 27, 1426);
-    			add_location(code9, file$1, 18, 24, 1515);
-    			add_location(code10, file$1, 19, 4, 1593);
+    			add_location(code3, file$1, 12, 5, 951);
+    			add_location(pre, file$1, 12, 0, 946);
+    			add_location(code4, file$1, 16, 27, 1183);
+    			add_location(code5, file$1, 16, 78, 1234);
+    			add_location(code6, file$1, 17, 8, 1273);
+    			add_location(p2, file$1, 15, 0, 1069);
+    			add_location(code7, file$1, 19, 60, 1474);
+    			add_location(code8, file$1, 20, 27, 1536);
+    			add_location(code9, file$1, 21, 24, 1625);
+    			add_location(code10, file$1, 22, 4, 1703);
     			attr_dev(the, "address", "");
     			attr_dev(the, "of", "");
     			attr_dev(the, "the", "");
@@ -963,17 +974,17 @@ var app = (function () {
     			attr_dev(the, "in", "");
     			attr_dev(the, "raw", "");
     			attr_dev(the, "mode", "");
-    			add_location(the, file$1, 15, 11, 1225);
-    			add_location(p3, file$1, 15, 0, 1214);
-    			add_location(code11, file$1, 20, 7, 1655);
-    			add_location(code12, file$1, 21, 27, 1780);
-    			add_location(p4, file$1, 20, 0, 1648);
+    			add_location(the, file$1, 18, 11, 1335);
+    			add_location(p3, file$1, 18, 0, 1324);
+    			add_location(code11, file$1, 23, 7, 1765);
+    			add_location(code12, file$1, 24, 27, 1890);
+    			add_location(p4, file$1, 23, 0, 1758);
     			attr_dev(div, "class", "box svelte-scql2x");
-    			set_style(div, "border", "" + ctx.styles.borderSize + " solid " + ctx.styles.borderColor);
-    			set_style(div, "border-radius", ctx.styles.borderRadius);
-    			set_style(div, "background-color", ctx.styles.divColor);
-    			set_style(div, "background-image", ctx.styles.divBackgroundPicture);
-    			set_style(div, "color", ctx.styles.textColor);
+    			set_style(div, "background-color", ctx.$info.styles.divColor);
+    			set_style(div, "background-image", ctx.$info.styles.divBackgroundPicture);
+    			set_style(div, "color", ctx.$info.styles.textColor);
+    			set_style(div, "border", "" + ctx.$info.styles.borderSize + " solid " + ctx.$info.styles.borderColor);
+    			set_style(div, "border-radius", ctx.$info.styles.borderRadius);
     			add_location(div, file$1, 0, 0, 0);
     		},
 
@@ -1029,12 +1040,12 @@ var app = (function () {
     		},
 
     		p: function update(changed, ctx) {
-    			if (changed.styles) {
-    				set_style(div, "border", "" + ctx.styles.borderSize + " solid " + ctx.styles.borderColor);
-    				set_style(div, "border-radius", ctx.styles.borderRadius);
-    				set_style(div, "background-color", ctx.styles.divColor);
-    				set_style(div, "background-image", ctx.styles.divBackgroundPicture);
-    				set_style(div, "color", ctx.styles.textColor);
+    			if (changed.$info) {
+    				set_style(div, "background-color", ctx.$info.styles.divColor);
+    				set_style(div, "background-image", ctx.$info.styles.divBackgroundPicture);
+    				set_style(div, "color", ctx.$info.styles.textColor);
+    				set_style(div, "border", "" + ctx.$info.styles.borderSize + " solid " + ctx.$info.styles.borderColor);
+    				set_style(div, "border-radius", ctx.$info.styles.borderRadius);
     			}
     		},
 
@@ -1060,16 +1071,18 @@ var app = (function () {
     }
 
     function instance$1($$self, $$props, $$invalidate) {
+    	let $info;
+
+    	validate_store(info, 'info');
+    	component_subscribe($$self, info, $$value => { $info = $$value; $$invalidate('$info', $info); });
+
     	
      
-      let styles = {};
-
       onMount(() => {
         //
         // Subscribe to the information store to get the site information.
         //
         const unsubscribeInfo = info.subscribe((value) => {
-          $$invalidate('styles', styles = value.styles);
         });
 
         return () => { unsubscribeInfo(); };
@@ -1080,10 +1093,10 @@ var app = (function () {
     	};
 
     	$$self.$inject_state = $$props => {
-    		if ('styles' in $$props) $$invalidate('styles', styles = $$props.styles);
+    		if ('$info' in $$props) info.set($info);
     	};
 
-    	return { styles };
+    	return { $info };
     }
 
     class Index extends SvelteComponentDev {
@@ -29961,25 +29974,25 @@ var app = (function () {
     const showSidebar = writable(true);
 
     /* src/components/Page.svelte generated by Svelte v3.12.1 */
-    const { Error: Error_1$1, Object: Object_1$1 } = globals;
+    const { Error: Error_1$1 } = globals;
 
     const file$2 = "src/components/Page.svelte";
 
-    // (19:0) {:catch e}
+    // (39:0) {:catch e}
     function create_catch_block_1(ctx) {
     	var content, content_intro;
 
     	const block = {
     		c: function create() {
     			content = element("content");
-    			set_style(content, "width", (ctx.sideBarON ? '70%' : '100%'));
-    			set_style(content, "border", "" + ctx.styles.borderSize + " solid " + ctx.styles.borderColor);
-    			set_style(content, "border-radius", ctx.styles.borderRadius);
-    			set_style(content, "background-color", ctx.styles.divColor);
-    			set_style(content, "background-image", ctx.styles.divBackgroundPicture);
-    			set_style(content, "color", ctx.styles.textColor);
+    			set_style(content, "width", (ctx.$info.$showSidebar ? '70%' : '100%'));
+    			set_style(content, "border", "" + ctx.$info.styles.borderSize + " solid " + ctx.$info.styles.borderColor);
+    			set_style(content, "border-radius", ctx.$info.styles.borderRadius);
+    			set_style(content, "background-color", ctx.$info.styles.divColor);
+    			set_style(content, "background-image", ctx.$info.styles.divBackgroundPicture);
+    			set_style(content, "color", ctx.$info.styles.textColor);
     			attr_dev(content, "class", "svelte-2f583i");
-    			add_location(content, file$2, 19, 2, 1482);
+    			add_location(content, file$2, 39, 2, 2596);
     		},
 
     		m: function mount(target, anchor) {
@@ -29992,16 +30005,13 @@ var app = (function () {
     				content.innerHTML = ctx.errorPage;
     			}
 
-    			if (changed.sideBarON) {
-    				set_style(content, "width", (ctx.sideBarON ? '70%' : '100%'));
-    			}
-
-    			if (changed.styles) {
-    				set_style(content, "border", "" + ctx.styles.borderSize + " solid " + ctx.styles.borderColor);
-    				set_style(content, "border-radius", ctx.styles.borderRadius);
-    				set_style(content, "background-color", ctx.styles.divColor);
-    				set_style(content, "background-image", ctx.styles.divBackgroundPicture);
-    				set_style(content, "color", ctx.styles.textColor);
+    			if (changed.$info) {
+    				set_style(content, "width", (ctx.$info.$showSidebar ? '70%' : '100%'));
+    				set_style(content, "border", "" + ctx.$info.styles.borderSize + " solid " + ctx.$info.styles.borderColor);
+    				set_style(content, "border-radius", ctx.$info.styles.borderRadius);
+    				set_style(content, "background-color", ctx.$info.styles.divColor);
+    				set_style(content, "background-image", ctx.$info.styles.divBackgroundPicture);
+    				set_style(content, "color", ctx.$info.styles.textColor);
     			}
     		},
 
@@ -30022,11 +30032,11 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_catch_block_1.name, type: "catch", source: "(19:0) {:catch e}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_catch_block_1.name, type: "catch", source: "(39:0) {:catch e}", ctx });
     	return block;
     }
 
-    // (5:0) {:then dt}
+    // (10:0) {:then dt}
     function create_then_block(ctx) {
     	var await_block_anchor, promise;
 
@@ -30083,25 +30093,25 @@ var app = (function () {
     			info_1 = null;
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_then_block.name, type: "then", source: "(5:0) {:then dt}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_then_block.name, type: "then", source: "(10:0) {:then dt}", ctx });
     	return block;
     }
 
-    // (14:2) {:catch e}
+    // (29:2) {:catch e}
     function create_catch_block(ctx) {
     	var content, content_intro;
 
     	const block = {
     		c: function create() {
     			content = element("content");
-    			set_style(content, "width", (ctx.sideBarON ? '70%' : '100%'));
-    			set_style(content, "border", "" + ctx.styles.borderSize + " solid " + ctx.styles.borderColor);
-    			set_style(content, "border-radius", ctx.styles.borderRadius);
-    			set_style(content, "background-color", ctx.styles.divColor);
-    			set_style(content, "background-image", ctx.styles.divBackgroundPicture);
-    			set_style(content, "color", ctx.styles.textColor);
+    			set_style(content, "width", (ctx.$showSidebar ? '70%' : '100%'));
+    			set_style(content, "border", "" + ctx.$info.styles.borderSize + " solid " + ctx.$info.styles.borderColor);
+    			set_style(content, "border-radius", ctx.$info.styles.borderRadius);
+    			set_style(content, "background-color", ctx.$info.styles.divColor);
+    			set_style(content, "background-image", ctx.$info.styles.divBackgroundPicture);
+    			set_style(content, "color", ctx.$info.styles.textColor);
     			attr_dev(content, "class", "svelte-2f583i");
-    			add_location(content, file$2, 14, 4, 1123);
+    			add_location(content, file$2, 29, 4, 1956);
     		},
 
     		m: function mount(target, anchor) {
@@ -30114,16 +30124,16 @@ var app = (function () {
     				content.innerHTML = ctx.errorPage;
     			}
 
-    			if (changed.sideBarON) {
-    				set_style(content, "width", (ctx.sideBarON ? '70%' : '100%'));
+    			if (changed.$showSidebar) {
+    				set_style(content, "width", (ctx.$showSidebar ? '70%' : '100%'));
     			}
 
-    			if (changed.styles) {
-    				set_style(content, "border", "" + ctx.styles.borderSize + " solid " + ctx.styles.borderColor);
-    				set_style(content, "border-radius", ctx.styles.borderRadius);
-    				set_style(content, "background-color", ctx.styles.divColor);
-    				set_style(content, "background-image", ctx.styles.divBackgroundPicture);
-    				set_style(content, "color", ctx.styles.textColor);
+    			if (changed.$info) {
+    				set_style(content, "border", "" + ctx.$info.styles.borderSize + " solid " + ctx.$info.styles.borderColor);
+    				set_style(content, "border-radius", ctx.$info.styles.borderRadius);
+    				set_style(content, "background-color", ctx.$info.styles.divColor);
+    				set_style(content, "background-image", ctx.$info.styles.divBackgroundPicture);
+    				set_style(content, "color", ctx.$info.styles.textColor);
     			}
     		},
 
@@ -30144,25 +30154,25 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_catch_block.name, type: "catch", source: "(14:2) {:catch e}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_catch_block.name, type: "catch", source: "(29:2) {:catch e}", ctx });
     	return block;
     }
 
-    // (10:2) {:then data}
+    // (20:2) {:then data}
     function create_then_block_1(ctx) {
     	var content, raw_value = ctx.processData(ctx.data) + "", content_intro;
 
     	const block = {
     		c: function create() {
     			content = element("content");
-    			set_style(content, "width", (ctx.sideBarON ? '70%' : '100%'));
-    			set_style(content, "border", "" + ctx.styles.borderSize + " solid " + ctx.styles.borderColor);
-    			set_style(content, "border-radius", ctx.styles.borderRadius);
-    			set_style(content, "background-color", ctx.styles.divColor);
-    			set_style(content, "background-image", ctx.styles.divBackgroundPicture);
-    			set_style(content, "color", ctx.styles.textColor);
+    			set_style(content, "width", (ctx.$showSidebar ? '70%' : '100%'));
+    			set_style(content, "border", "" + ctx.$info.styles.borderSize + " solid " + ctx.$info.styles.borderColor);
+    			set_style(content, "border-radius", ctx.$info.styles.borderRadius);
+    			set_style(content, "background-color", ctx.$info.styles.divColor);
+    			set_style(content, "background-image", ctx.$info.styles.divBackgroundPicture);
+    			set_style(content, "color", ctx.$info.styles.textColor);
     			attr_dev(content, "class", "svelte-2f583i");
-    			add_location(content, file$2, 10, 4, 768);
+    			add_location(content, file$2, 20, 4, 1320);
     		},
 
     		m: function mount(target, anchor) {
@@ -30175,16 +30185,16 @@ var app = (function () {
     				content.innerHTML = raw_value;
     			}
 
-    			if (changed.sideBarON) {
-    				set_style(content, "width", (ctx.sideBarON ? '70%' : '100%'));
+    			if (changed.$showSidebar) {
+    				set_style(content, "width", (ctx.$showSidebar ? '70%' : '100%'));
     			}
 
-    			if (changed.styles) {
-    				set_style(content, "border", "" + ctx.styles.borderSize + " solid " + ctx.styles.borderColor);
-    				set_style(content, "border-radius", ctx.styles.borderRadius);
-    				set_style(content, "background-color", ctx.styles.divColor);
-    				set_style(content, "background-image", ctx.styles.divBackgroundPicture);
-    				set_style(content, "color", ctx.styles.textColor);
+    			if (changed.$info) {
+    				set_style(content, "border", "" + ctx.$info.styles.borderSize + " solid " + ctx.$info.styles.borderColor);
+    				set_style(content, "border-radius", ctx.$info.styles.borderRadius);
+    				set_style(content, "background-color", ctx.$info.styles.divColor);
+    				set_style(content, "background-image", ctx.$info.styles.divBackgroundPicture);
+    				set_style(content, "color", ctx.$info.styles.textColor);
     			}
     		},
 
@@ -30205,11 +30215,11 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_then_block_1.name, type: "then", source: "(10:2) {:then data}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_then_block_1.name, type: "then", source: "(20:2) {:then data}", ctx });
     	return block;
     }
 
-    // (6:23)      <content in:fade="{{duration: 500}}
+    // (11:23)      <content in:fade="{{duration: 500}}
     function create_pending_block_1(ctx) {
     	var content, h2, content_intro;
 
@@ -30220,15 +30230,15 @@ var app = (function () {
     			h2.textContent = "Loading page...";
     			attr_dev(h2, "id", "waiting");
     			attr_dev(h2, "class", "svelte-2f583i");
-    			add_location(h2, file$2, 7, 6, 696);
-    			set_style(content, "width", (ctx.sideBarON ? '70%' : '100%'));
-    			set_style(content, "border", "" + ctx.styles.borderSize + " solid " + ctx.styles.borderColor);
-    			set_style(content, "border-radius", ctx.styles.borderRadius);
-    			set_style(content, "background-color", ctx.styles.divColor);
-    			set_style(content, "background-image", ctx.styles.divBackgroundPicture);
-    			set_style(content, "color", ctx.styles.textColor);
+    			add_location(h2, file$2, 17, 6, 1248);
+    			set_style(content, "width", (ctx.$showSidebar ? '70%' : '100%'));
+    			set_style(content, "border", "" + ctx.$info.styles.borderSize + " solid " + ctx.$info.styles.borderColor);
+    			set_style(content, "border-radius", ctx.$info.styles.borderRadius);
+    			set_style(content, "background-color", ctx.$info.styles.divColor);
+    			set_style(content, "background-image", ctx.$info.styles.divBackgroundPicture);
+    			set_style(content, "color", ctx.$info.styles.textColor);
     			attr_dev(content, "class", "svelte-2f583i");
-    			add_location(content, file$2, 6, 4, 399);
+    			add_location(content, file$2, 11, 4, 670);
     		},
 
     		m: function mount(target, anchor) {
@@ -30237,16 +30247,16 @@ var app = (function () {
     		},
 
     		p: function update(changed, ctx) {
-    			if (changed.sideBarON) {
-    				set_style(content, "width", (ctx.sideBarON ? '70%' : '100%'));
+    			if (changed.$showSidebar) {
+    				set_style(content, "width", (ctx.$showSidebar ? '70%' : '100%'));
     			}
 
-    			if (changed.styles) {
-    				set_style(content, "border", "" + ctx.styles.borderSize + " solid " + ctx.styles.borderColor);
-    				set_style(content, "border-radius", ctx.styles.borderRadius);
-    				set_style(content, "background-color", ctx.styles.divColor);
-    				set_style(content, "background-image", ctx.styles.divBackgroundPicture);
-    				set_style(content, "color", ctx.styles.textColor);
+    			if (changed.$info) {
+    				set_style(content, "border", "" + ctx.$info.styles.borderSize + " solid " + ctx.$info.styles.borderColor);
+    				set_style(content, "border-radius", ctx.$info.styles.borderRadius);
+    				set_style(content, "background-color", ctx.$info.styles.divColor);
+    				set_style(content, "background-image", ctx.$info.styles.divBackgroundPicture);
+    				set_style(content, "color", ctx.$info.styles.textColor);
     			}
     		},
 
@@ -30267,7 +30277,7 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_pending_block_1.name, type: "pending", source: "(6:23)      <content in:fade=\"{{duration: 500}}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_pending_block_1.name, type: "pending", source: "(11:23)      <content in:fade=\"{{duration: 500}}", ctx });
     	return block;
     }
 
@@ -30280,13 +30290,13 @@ var app = (function () {
     			content = element("content");
     			h2 = element("h2");
     			h2.textContent = "Loading Partials...";
-    			add_location(h2, file$2, 2, 4, 318);
-    			set_style(content, "width", (ctx.sideBarON ? '70%' : '100%'));
-    			set_style(content, "border", "" + ctx.styles.borderSize + " solid " + ctx.styles.borderColor);
-    			set_style(content, "border-radius", ctx.styles.borderRadius);
-    			set_style(content, "background-color", ctx.styles.divColor);
-    			set_style(content, "background-image", ctx.styles.divBackgroundPicture);
-    			set_style(content, "color", ctx.styles.textColor);
+    			add_location(h2, file$2, 7, 4, 589);
+    			set_style(content, "width", (ctx.$showSidebar ? '70%' : '100%'));
+    			set_style(content, "border", "" + ctx.$info.styles.borderSize + " solid " + ctx.$info.styles.borderColor);
+    			set_style(content, "border-radius", ctx.$info.styles.borderRadius);
+    			set_style(content, "background-color", ctx.$info.styles.divColor);
+    			set_style(content, "background-image", ctx.$info.styles.divBackgroundPicture);
+    			set_style(content, "color", ctx.$info.styles.textColor);
     			attr_dev(content, "class", "svelte-2f583i");
     			add_location(content, file$2, 1, 2, 23);
     		},
@@ -30297,16 +30307,16 @@ var app = (function () {
     		},
 
     		p: function update(changed, ctx) {
-    			if (changed.sideBarON) {
-    				set_style(content, "width", (ctx.sideBarON ? '70%' : '100%'));
+    			if (changed.$showSidebar) {
+    				set_style(content, "width", (ctx.$showSidebar ? '70%' : '100%'));
     			}
 
-    			if (changed.styles) {
-    				set_style(content, "border", "" + ctx.styles.borderSize + " solid " + ctx.styles.borderColor);
-    				set_style(content, "border-radius", ctx.styles.borderRadius);
-    				set_style(content, "background-color", ctx.styles.divColor);
-    				set_style(content, "background-image", ctx.styles.divBackgroundPicture);
-    				set_style(content, "color", ctx.styles.textColor);
+    			if (changed.$info) {
+    				set_style(content, "border", "" + ctx.$info.styles.borderSize + " solid " + ctx.$info.styles.borderColor);
+    				set_style(content, "border-radius", ctx.$info.styles.borderRadius);
+    				set_style(content, "background-color", ctx.$info.styles.divColor);
+    				set_style(content, "background-image", ctx.$info.styles.divBackgroundPicture);
+    				set_style(content, "color", ctx.$info.styles.textColor);
     			}
     		},
 
@@ -30396,19 +30406,21 @@ var app = (function () {
     }
 
     function instance$3($$self, $$props, $$invalidate) {
+    	let $showSidebar, $info;
+
+    	validate_store(showSidebar, 'showSidebar');
+    	component_subscribe($$self, showSidebar, $$value => { $showSidebar = $$value; $$invalidate('$showSidebar', $showSidebar); });
+    	validate_store(info, 'info');
+    	component_subscribe($$self, info, $$value => { $info = $$value; $$invalidate('$info', $info); });
+
     	
 
-      let { params = {} } = $$props;
-      
       let converter = null;
-      let page = null;
       let firstPromise;
       let errorPage = '';
       let parts = [];
-      let styles = {};
       let site = {};
       let lastPromise;
-      let sideBarON = true;
 
       async function fetchPage(pg) {
         if(pg !== null) {
@@ -30421,7 +30433,7 @@ var app = (function () {
           const response = await fetch(address + '/site' + pg + ".md");
           const text = await response.text();
           if(response.ok && (response.status === 200)) {
-            if(((text[0] !== '-')&&(text[0] !== '+'))||(text[0] === '<')) {
+            if(((text[0] !== '-')&&(text[0] !== '+'))||(text[0] == '<')) {
               //
               // It's not a proper header. Treat as an error.
               //
@@ -30492,19 +30504,16 @@ var app = (function () {
         //
         const unsubscribeInfo = info.subscribe(value => {
           site = value;
-          $$invalidate('styles', styles = value.styles);
         });
 
         const unsubscribeLocation = location.subscribe(value => {
-          page = value;
-          $$invalidate('lastPromise', lastPromise = getPartials());
-          $$invalidate('firstPromise', firstPromise = fetchPage(page));
+          $$invalidate('firstPromise', firstPromise = fetchPage(value));
         });
 
         const unsubscribeshowSidebar = showSidebar.subscribe(value => {
-          $$invalidate('sideBarON', sideBarON = value);
         });
 
+        $$invalidate('lastPromise', lastPromise = getPartials());
         return () => { 
           unsubscribeshowSidebar(); 
           unsubscribeInfo(); 
@@ -30524,7 +30533,8 @@ var app = (function () {
           address = st.GitHub;
         }
         var rep = await fetch(address + '/site/404.md');
-        $$invalidate('errorPage', errorPage = await rep.text());
+        var errorPageOrig = await rep.text();
+        $$invalidate('errorPage', errorPage = processData(errorPageOrig));
 
         //
         // Get the parts pages.
@@ -30546,11 +30556,10 @@ var app = (function () {
         //
         // This should never happen but if it does, then reload.
         //
-        if(typeof data === 'undefined') return '';
+        if((typeof data === 'undefined')||(data == null)) return '';
         
         if(data[0] === '<') {
-          $$invalidate('firstPromise', firstPromise = fetchPage(page));
-          return '';
+          return data;
         }
 
         //
@@ -30668,56 +30677,36 @@ var app = (function () {
         return result;
       }
 
-    	const writable_props = ['params'];
-    	Object_1$1.keys($$props).forEach(key => {
-    		if (!writable_props.includes(key) && !key.startsWith('$$')) console.warn(`<Page> was created with unknown prop '${key}'`);
-    	});
-
-    	$$self.$set = $$props => {
-    		if ('params' in $$props) $$invalidate('params', params = $$props.params);
-    	};
-
     	$$self.$capture_state = () => {
-    		return { params, converter, page, firstPromise, errorPage, parts, styles, site, lastPromise, sideBarON };
+    		return {};
     	};
 
     	$$self.$inject_state = $$props => {
-    		if ('params' in $$props) $$invalidate('params', params = $$props.params);
     		if ('converter' in $$props) converter = $$props.converter;
-    		if ('page' in $$props) page = $$props.page;
     		if ('firstPromise' in $$props) $$invalidate('firstPromise', firstPromise = $$props.firstPromise);
     		if ('errorPage' in $$props) $$invalidate('errorPage', errorPage = $$props.errorPage);
     		if ('parts' in $$props) parts = $$props.parts;
-    		if ('styles' in $$props) $$invalidate('styles', styles = $$props.styles);
     		if ('site' in $$props) site = $$props.site;
     		if ('lastPromise' in $$props) $$invalidate('lastPromise', lastPromise = $$props.lastPromise);
-    		if ('sideBarON' in $$props) $$invalidate('sideBarON', sideBarON = $$props.sideBarON);
+    		if ('$showSidebar' in $$props) showSidebar.set($showSidebar);
+    		if ('$info' in $$props) info.set($info);
     	};
 
     	return {
-    		params,
     		firstPromise,
     		errorPage,
-    		styles,
     		lastPromise,
-    		sideBarON,
-    		processData
+    		processData,
+    		$showSidebar,
+    		$info
     	};
     }
 
     class Page extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$3, create_fragment$3, safe_not_equal, ["params"]);
+    		init(this, options, instance$3, create_fragment$3, safe_not_equal, []);
     		dispatch_dev("SvelteRegisterComponent", { component: this, tagName: "Page", options, id: create_fragment$3.name });
-    	}
-
-    	get params() {
-    		throw new Error_1$1("<Page>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	set params(value) {
-    		throw new Error_1$1("<Page>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
 
@@ -30858,16 +30847,14 @@ var app = (function () {
 
     function instance$4($$self, $$props, $$invalidate) {
     	
-     
-      let styles = {};
-
+      
       onMount(() => {
         //
         // Subscribe to the information store to get the site information.
         //
-        const unsubscribeInfo = info.subscribe((value) => {
-          styles = value.styles;
-        });
+        const unsubscribeInfo = info.subscribe(async (value) => {
+          if(typeof window.twttr !== 'undefined') await window.twttr.widgets.load();
+      });
 
         return () => { unsubscribeInfo(); };
       });
@@ -30882,9 +30869,7 @@ var app = (function () {
     		return {};
     	};
 
-    	$$self.$inject_state = $$props => {
-    		if ('styles' in $$props) styles = $$props.styles;
-    	};
+    	$$self.$inject_state = $$props => {};
 
     	return { $$slots, $$scope };
     }
@@ -30913,14 +30898,14 @@ var app = (function () {
     			a = element("a");
     			a.textContent = "My First Post";
     			attr_dev(h4, "class", "svelte-12waaog");
-    			add_location(h4, file$5, 1, 2, 139);
+    			add_location(h4, file$5, 3, 2, 203);
     			attr_dev(a, "href", "/#/blog/my-first-post");
     			attr_dev(a, "class", "svelte-12waaog");
-    			add_location(a, file$5, 2, 2, 161);
+    			add_location(a, file$5, 4, 2, 225);
     			attr_dev(div, "id", "blog");
-    			set_style(div, "background-color", ctx.styles.divColor);
-    			set_style(div, "background-image", ctx.styles.divBackgroundPicture);
-    			set_style(div, "color", ctx.styles.textColor);
+    			set_style(div, "background-color", ctx.$info.styles.divColor);
+    			set_style(div, "background-image", ctx.$info.styles.divBackgroundPicture);
+    			set_style(div, "color", ctx.$info.styles.textColor);
     			attr_dev(div, "class", "svelte-12waaog");
     			add_location(div, file$5, 0, 0, 0);
     		},
@@ -30937,10 +30922,10 @@ var app = (function () {
     		},
 
     		p: function update(changed, ctx) {
-    			if (changed.styles) {
-    				set_style(div, "background-color", ctx.styles.divColor);
-    				set_style(div, "background-image", ctx.styles.divBackgroundPicture);
-    				set_style(div, "color", ctx.styles.textColor);
+    			if (changed.$info) {
+    				set_style(div, "background-color", ctx.$info.styles.divColor);
+    				set_style(div, "background-image", ctx.$info.styles.divBackgroundPicture);
+    				set_style(div, "color", ctx.$info.styles.textColor);
     			}
     		},
 
@@ -30958,16 +30943,18 @@ var app = (function () {
     }
 
     function instance$5($$self, $$props, $$invalidate) {
+    	let $info;
+
+    	validate_store(info, 'info');
+    	component_subscribe($$self, info, $$value => { $info = $$value; $$invalidate('$info', $info); });
+
     	
      
-      let styles = {};
-
       onMount(() => {
         //
         // Subscribe to the information store to get the site information.
         //
         const unsubscribeInfo = info.subscribe((value) => {
-          $$invalidate('styles', styles = value.styles);
         });
 
         return () => { unsubscribeInfo(); };
@@ -30978,10 +30965,10 @@ var app = (function () {
     	};
 
     	$$self.$inject_state = $$props => {
-    		if ('styles' in $$props) $$invalidate('styles', styles = $$props.styles);
+    		if ('$info' in $$props) info.set($info);
     	};
 
-    	return { styles };
+    	return { $info };
     }
 
     class BlogPosts extends SvelteComponentDev {
@@ -30996,7 +30983,7 @@ var app = (function () {
 
     const file$6 = "src/components/Sidebar.svelte";
 
-    // (1:0) {#if styles.showSideBar && !styles.sideBarLeft}
+    // (1:0) {#if $info.styles.showSideBar && !$info.styles.sideBarLeft}
     function create_if_block_1(ctx) {
     	var div, t, current;
 
@@ -31019,13 +31006,13 @@ var app = (function () {
     			attr_dev(div, "id", "sidebar");
     			set_style(div, "margin-right", "0px");
     			set_style(div, "margin-left", "10px");
-    			set_style(div, "background-color", ctx.styles.divColor);
-    			set_style(div, "background-image", ctx.styles.divBackgroundPicture);
-    			set_style(div, "border", "" + ctx.styles.borderSize + " solid " + ctx.styles.borderColor);
-    			set_style(div, "border-radius", ctx.styles.borderRadius);
-    			set_style(div, "color", ctx.styles.textColor);
+    			set_style(div, "background-color", ctx.$info.styles.divColor);
+    			set_style(div, "background-image", ctx.$info.styles.divBackgroundPicture);
+    			set_style(div, "border", "" + ctx.$info.styles.borderSize + " solid " + ctx.$info.styles.borderColor);
+    			set_style(div, "border-radius", ctx.$info.styles.borderRadius);
+    			set_style(div, "color", ctx.$info.styles.textColor);
     			attr_dev(div, "class", "svelte-1l2bqy");
-    			add_location(div, file$6, 1, 0, 48);
+    			add_location(div, file$6, 1, 0, 60);
     		},
 
     		m: function mount(target, anchor) {
@@ -31041,12 +31028,12 @@ var app = (function () {
     			if (changed.$$scope) twitter_changes.$$scope = { changed, ctx };
     			twitter.$set(twitter_changes);
 
-    			if (!current || changed.styles) {
-    				set_style(div, "background-color", ctx.styles.divColor);
-    				set_style(div, "background-image", ctx.styles.divBackgroundPicture);
-    				set_style(div, "border", "" + ctx.styles.borderSize + " solid " + ctx.styles.borderColor);
-    				set_style(div, "border-radius", ctx.styles.borderRadius);
-    				set_style(div, "color", ctx.styles.textColor);
+    			if (!current || changed.$info) {
+    				set_style(div, "background-color", ctx.$info.styles.divColor);
+    				set_style(div, "background-image", ctx.$info.styles.divBackgroundPicture);
+    				set_style(div, "border", "" + ctx.$info.styles.borderSize + " solid " + ctx.$info.styles.borderColor);
+    				set_style(div, "border-radius", ctx.$info.styles.borderRadius);
+    				set_style(div, "color", ctx.$info.styles.textColor);
     			}
     		},
 
@@ -31075,11 +31062,11 @@ var app = (function () {
     			destroy_component(blogposts);
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_1.name, type: "if", source: "(1:0) {#if styles.showSideBar && !styles.sideBarLeft}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_1.name, type: "if", source: "(1:0) {#if $info.styles.showSideBar && !$info.styles.sideBarLeft}", ctx });
     	return block;
     }
 
-    // (3:2) <Twitter>
+    // (9:2) <Twitter>
     function create_default_slot_1(ctx) {
     	var p;
 
@@ -31087,7 +31074,7 @@ var app = (function () {
     		c: function create() {
     			p = element("p");
     			p.textContent = "Put the line you get from Twitter for your news here.";
-    			add_location(p, file$6, 3, 4, 337);
+    			add_location(p, file$6, 9, 4, 541);
     		},
 
     		m: function mount(target, anchor) {
@@ -31100,11 +31087,11 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_default_slot_1.name, type: "slot", source: "(3:2) <Twitter>", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_default_slot_1.name, type: "slot", source: "(9:2) <Twitter>", ctx });
     	return block;
     }
 
-    // (10:0) {#if styles.showSideBar && styles.sideBarLeft}
+    // (16:0) {#if $info.styles.showSideBar && $info.styles.sideBarLeft}
     function create_if_block(ctx) {
     	var div, t, current;
 
@@ -31127,13 +31114,13 @@ var app = (function () {
     			attr_dev(div, "id", "sidebar");
     			set_style(div, "margin-right", "10px");
     			set_style(div, "margin-left", "0px");
-    			set_style(div, "background-color", ctx.styles.divColor);
-    			set_style(div, "background-image", ctx.styles.divBackgroundPicture);
-    			set_style(div, "border", "" + ctx.styles.borderSize + " solid " + ctx.styles.borderColor);
-    			set_style(div, "border-radius", ctx.styles.borderRadius);
-    			set_style(div, "color", ctx.styles.textColor);
+    			set_style(div, "background-color", ctx.$info.styles.divColor);
+    			set_style(div, "background-image", ctx.$info.styles.divBackgroundPicture);
+    			set_style(div, "border", "" + ctx.$info.styles.borderSize + " solid " + ctx.$info.styles.borderColor);
+    			set_style(div, "border-radius", ctx.$info.styles.borderRadius);
+    			set_style(div, "color", ctx.$info.styles.textColor);
     			attr_dev(div, "class", "svelte-1l2bqy");
-    			add_location(div, file$6, 10, 0, 488);
+    			add_location(div, file$6, 16, 0, 704);
     		},
 
     		m: function mount(target, anchor) {
@@ -31149,12 +31136,12 @@ var app = (function () {
     			if (changed.$$scope) twitter_changes.$$scope = { changed, ctx };
     			twitter.$set(twitter_changes);
 
-    			if (!current || changed.styles) {
-    				set_style(div, "background-color", ctx.styles.divColor);
-    				set_style(div, "background-image", ctx.styles.divBackgroundPicture);
-    				set_style(div, "border", "" + ctx.styles.borderSize + " solid " + ctx.styles.borderColor);
-    				set_style(div, "border-radius", ctx.styles.borderRadius);
-    				set_style(div, "color", ctx.styles.textColor);
+    			if (!current || changed.$info) {
+    				set_style(div, "background-color", ctx.$info.styles.divColor);
+    				set_style(div, "background-image", ctx.$info.styles.divBackgroundPicture);
+    				set_style(div, "border", "" + ctx.$info.styles.borderSize + " solid " + ctx.$info.styles.borderColor);
+    				set_style(div, "border-radius", ctx.$info.styles.borderRadius);
+    				set_style(div, "color", ctx.$info.styles.textColor);
     			}
     		},
 
@@ -31183,11 +31170,11 @@ var app = (function () {
     			destroy_component(blogposts);
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block.name, type: "if", source: "(10:0) {#if styles.showSideBar && styles.sideBarLeft}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block.name, type: "if", source: "(16:0) {#if $info.styles.showSideBar && $info.styles.sideBarLeft}", ctx });
     	return block;
     }
 
-    // (12:2) <Twitter>
+    // (24:2) <Twitter>
     function create_default_slot(ctx) {
     	var p;
 
@@ -31195,7 +31182,7 @@ var app = (function () {
     		c: function create() {
     			p = element("p");
     			p.textContent = "Put the line you get from Twitter for your news here.";
-    			add_location(p, file$6, 12, 4, 776);
+    			add_location(p, file$6, 24, 4, 1178);
     		},
 
     		m: function mount(target, anchor) {
@@ -31208,16 +31195,16 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_default_slot.name, type: "slot", source: "(12:2) <Twitter>", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_default_slot.name, type: "slot", source: "(24:2) <Twitter>", ctx });
     	return block;
     }
 
     function create_fragment$7(ctx) {
     	var t, if_block1_anchor, current;
 
-    	var if_block0 = (ctx.styles.showSideBar && !ctx.styles.sideBarLeft) && create_if_block_1(ctx);
+    	var if_block0 = (ctx.$info.styles.showSideBar && !ctx.$info.styles.sideBarLeft) && create_if_block_1(ctx);
 
-    	var if_block1 = (ctx.styles.showSideBar && ctx.styles.sideBarLeft) && create_if_block(ctx);
+    	var if_block1 = (ctx.$info.styles.showSideBar && ctx.$info.styles.sideBarLeft) && create_if_block(ctx);
 
     	const block = {
     		c: function create() {
@@ -31240,7 +31227,7 @@ var app = (function () {
     		},
 
     		p: function update(changed, ctx) {
-    			if (ctx.styles.showSideBar && !ctx.styles.sideBarLeft) {
+    			if (ctx.$info.styles.showSideBar && !ctx.$info.styles.sideBarLeft) {
     				if (if_block0) {
     					if_block0.p(changed, ctx);
     					transition_in(if_block0, 1);
@@ -31258,7 +31245,7 @@ var app = (function () {
     				check_outros();
     			}
 
-    			if (ctx.styles.showSideBar && ctx.styles.sideBarLeft) {
+    			if (ctx.$info.styles.showSideBar && ctx.$info.styles.sideBarLeft) {
     				if (if_block1) {
     					if_block1.p(changed, ctx);
     					transition_in(if_block1, 1);
@@ -31309,16 +31296,18 @@ var app = (function () {
     }
 
     function instance$6($$self, $$props, $$invalidate) {
+    	let $info;
+
+    	validate_store(info, 'info');
+    	component_subscribe($$self, info, $$value => { $info = $$value; $$invalidate('$info', $info); });
+
     	
-     
-      let styles = {};
 
       onMount(() => {
         //
         // Subscribe to the information store to get the site information.
         //
         const unsubscribeInfo = info.subscribe((value) => {
-          $$invalidate('styles', styles = value.styles);
         });
 
         return () => { unsubscribeInfo(); };
@@ -31329,10 +31318,10 @@ var app = (function () {
     	};
 
     	$$self.$inject_state = $$props => {
-    		if ('styles' in $$props) $$invalidate('styles', styles = $$props.styles);
+    		if ('$info' in $$props) info.set($info);
     	};
 
-    	return { styles };
+    	return { $info };
     }
 
     class Sidebar extends SvelteComponentDev {
@@ -31340,6 +31329,212 @@ var app = (function () {
     		super(options);
     		init(this, options, instance$6, create_fragment$7, safe_not_equal, []);
     		dispatch_dev("SvelteRegisterComponent", { component: this, tagName: "Sidebar", options, id: create_fragment$7.name });
+    	}
+    }
+
+    /* src/components/Dropdown.svelte generated by Svelte v3.12.1 */
+
+    const file$7 = "src/components/Dropdown.svelte";
+
+    function create_fragment$8(ctx) {
+    	var div, a, t0, t1, current, dispose;
+
+    	const default_slot_template = ctx.$$slots.default;
+    	const default_slot = create_slot(default_slot_template, ctx, null);
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			a = element("a");
+    			t0 = text(ctx.name);
+    			t1 = space();
+
+    			if (default_slot) default_slot.c();
+    			attr_dev(a, "href", "/#");
+    			set_style(a, "color", ctx.$info.styles.textColor);
+    			attr_dev(a, "class", "svelte-i7lufb");
+    			add_location(a, file$7, 1, 2, 112);
+
+    			attr_dev(div, "id", "dropdown");
+    			set_style(div, "height", ctx.setHeight);
+    			attr_dev(div, "class", "svelte-i7lufb");
+    			add_location(div, file$7, 0, 0, 0);
+
+    			dispose = [
+    				listen_dev(a, "mouseover", ctx.hoverAction),
+    				listen_dev(a, "mouseout", ctx.hoverAction),
+    				listen_dev(a, "click", prevent_default(click_handler), false, true),
+    				listen_dev(div, "mouseover", ctx.divHoverAction),
+    				listen_dev(div, "mouseout", ctx.divHoverAction)
+    			];
+    		},
+
+    		l: function claim(nodes) {
+    			if (default_slot) default_slot.l(div_nodes);
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			append_dev(div, a);
+    			append_dev(a, t0);
+    			append_dev(div, t1);
+
+    			if (default_slot) {
+    				default_slot.m(div, null);
+    			}
+
+    			current = true;
+    		},
+
+    		p: function update(changed, ctx) {
+    			if (!current || changed.name) {
+    				set_data_dev(t0, ctx.name);
+    			}
+
+    			if (!current || changed.$info) {
+    				set_style(a, "color", ctx.$info.styles.textColor);
+    			}
+
+    			if (default_slot && default_slot.p && changed.$$scope) {
+    				default_slot.p(
+    					get_slot_changes(default_slot_template, ctx, changed, null),
+    					get_slot_context(default_slot_template, ctx, null)
+    				);
+    			}
+
+    			if (!current || changed.setHeight) {
+    				set_style(div, "height", ctx.setHeight);
+    			}
+    		},
+
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(default_slot, local);
+    			current = true;
+    		},
+
+    		o: function outro(local) {
+    			transition_out(default_slot, local);
+    			current = false;
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(div);
+    			}
+
+    			if (default_slot) default_slot.d(detaching);
+    			run_all(dispose);
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_fragment$8.name, type: "component", source: "", ctx });
+    	return block;
+    }
+
+    const click_handler = (e) => {};
+
+    function instance$7($$self, $$props, $$invalidate) {
+    	let $info;
+
+    	validate_store(info, 'info');
+    	component_subscribe($$self, info, $$value => { $info = $$value; $$invalidate('$info', $info); });
+
+    	
+
+      let { name = '' } = $$props;
+      
+      let savedInfo = {};
+      let maxHeight = 0;
+      let setHeight = "100%";
+      let newSave = false;
+
+      function divHoverAction(e) {
+        switch(e.type) {
+          case 'mouseover':
+            $$invalidate('setHeight', setHeight = (maxHeight === 0)||newSave ? '100%' : maxHeight.toString() + 'px');
+            break;
+          case 'mouseout':
+            if(maxHeight === 0) {
+              maxHeight = e.target.parentNode.clientHeight;
+            } else {
+              if(newSave) maxHeight = 0;
+            }
+            $$invalidate('setHeight', setHeight = savedInfo.styles.navFontSize);
+            break;
+        }
+      }
+
+      function hoverAction(e) {
+        switch(e.type) {
+          case 'mouseover':
+            e.target.style.color = savedInfo.styles.navHoverColor;
+            break;
+          case 'mouseout':
+            e.target.style.color = savedInfo.styles.textColor;
+            break;
+        }
+      }
+
+
+      onMount(() => {
+        const unsubscribeInfo = info.subscribe((value) => {
+          savedInfo = value;
+          $$invalidate('setHeight', setHeight = value.styles.navFontSize);
+          if(maxHeight !== 0) newSave = true;
+        });
+        return () => { unsubscribeInfo(); };
+      });
+
+    	const writable_props = ['name'];
+    	Object.keys($$props).forEach(key => {
+    		if (!writable_props.includes(key) && !key.startsWith('$$')) console.warn(`<Dropdown> was created with unknown prop '${key}'`);
+    	});
+
+    	let { $$slots = {}, $$scope } = $$props;
+
+    	$$self.$set = $$props => {
+    		if ('name' in $$props) $$invalidate('name', name = $$props.name);
+    		if ('$$scope' in $$props) $$invalidate('$$scope', $$scope = $$props.$$scope);
+    	};
+
+    	$$self.$capture_state = () => {
+    		return { name, savedInfo, maxHeight, setHeight, newSave, $info };
+    	};
+
+    	$$self.$inject_state = $$props => {
+    		if ('name' in $$props) $$invalidate('name', name = $$props.name);
+    		if ('savedInfo' in $$props) savedInfo = $$props.savedInfo;
+    		if ('maxHeight' in $$props) maxHeight = $$props.maxHeight;
+    		if ('setHeight' in $$props) $$invalidate('setHeight', setHeight = $$props.setHeight);
+    		if ('newSave' in $$props) newSave = $$props.newSave;
+    		if ('$info' in $$props) info.set($info);
+    	};
+
+    	return {
+    		name,
+    		setHeight,
+    		divHoverAction,
+    		hoverAction,
+    		$info,
+    		$$slots,
+    		$$scope
+    	};
+    }
+
+    class Dropdown extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$7, create_fragment$8, safe_not_equal, ["name"]);
+    		dispatch_dev("SvelteRegisterComponent", { component: this, tagName: "Dropdown", options, id: create_fragment$8.name });
+    	}
+
+    	get name() {
+    		throw new Error("<Dropdown>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set name(value) {
+    		throw new Error("<Dropdown>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
 
@@ -31421,40 +31616,139 @@ var app = (function () {
 
     /* src/components/NavBar.svelte generated by Svelte v3.12.1 */
 
-    const file$7 = "src/components/NavBar.svelte";
+    const file$8 = "src/components/NavBar.svelte";
 
-    function create_fragment$8(ctx) {
-    	var div, a0, link_action, active_action, t1, a1, link_action_1, active_action_1, t3, a2, link_action_2, active_action_2;
+    // (11:2) <Dropdown name='Themes'>
+    function create_default_slot$1(ctx) {
+    	var a0, t0, t1, a1, t2, t3, a2, t4, dispose;
+
+    	const block = {
+    		c: function create() {
+    			a0 = element("a");
+    			t0 = text("Dark");
+    			t1 = space();
+    			a1 = element("a");
+    			t2 = text("Light");
+    			t3 = space();
+    			a2 = element("a");
+    			t4 = text("Brown");
+    			attr_dev(a0, "href", "/#");
+    			set_style(a0, "color", ctx.$info.styles.textColor);
+    			attr_dev(a0, "class", "svelte-1nsm3f3");
+    			add_location(a0, file$8, 11, 4, 966);
+    			attr_dev(a1, "href", "/#");
+    			set_style(a1, "color", ctx.$info.styles.textColor);
+    			attr_dev(a1, "class", "svelte-1nsm3f3");
+    			add_location(a1, file$8, 12, 4, 1142);
+    			attr_dev(a2, "href", "/#");
+    			set_style(a2, "color", ctx.$info.styles.textColor);
+    			attr_dev(a2, "class", "svelte-1nsm3f3");
+    			add_location(a2, file$8, 13, 4, 1320);
+
+    			dispose = [
+    				listen_dev(a0, "mouseover", ctx.hoverAction),
+    				listen_dev(a0, "mouseout", ctx.hoverAction),
+    				listen_dev(a0, "click", prevent_default(ctx.click_handler), false, true),
+    				listen_dev(a1, "mouseover", ctx.hoverAction),
+    				listen_dev(a1, "mouseout", ctx.hoverAction),
+    				listen_dev(a1, "click", prevent_default(ctx.click_handler_1), false, true),
+    				listen_dev(a2, "mouseover", ctx.hoverAction),
+    				listen_dev(a2, "mouseout", ctx.hoverAction),
+    				listen_dev(a2, "click", prevent_default(ctx.click_handler_2), false, true)
+    			];
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert_dev(target, a0, anchor);
+    			append_dev(a0, t0);
+    			insert_dev(target, t1, anchor);
+    			insert_dev(target, a1, anchor);
+    			append_dev(a1, t2);
+    			insert_dev(target, t3, anchor);
+    			insert_dev(target, a2, anchor);
+    			append_dev(a2, t4);
+    		},
+
+    		p: function update(changed, ctx) {
+    			if (changed.$info) {
+    				set_style(a0, "color", ctx.$info.styles.textColor);
+    				set_style(a1, "color", ctx.$info.styles.textColor);
+    				set_style(a2, "color", ctx.$info.styles.textColor);
+    			}
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(a0);
+    				detach_dev(t1);
+    				detach_dev(a1);
+    				detach_dev(t3);
+    				detach_dev(a2);
+    			}
+
+    			run_all(dispose);
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_default_slot$1.name, type: "slot", source: "(11:2) <Dropdown name='Themes'>", ctx });
+    	return block;
+    }
+
+    function create_fragment$9(ctx) {
+    	var div, a0, t0, link_action, active_action, t1, a1, t2, link_action_1, active_action_1, t3, a2, t4, link_action_2, active_action_2, t5, current, dispose;
+
+    	var dropdown = new Dropdown({
+    		props: {
+    		name: "Themes",
+    		$$slots: { default: [create_default_slot$1] },
+    		$$scope: { ctx }
+    	},
+    		$$inline: true
+    	});
 
     	const block = {
     		c: function create() {
     			div = element("div");
     			a0 = element("a");
-    			a0.textContent = "Home";
+    			t0 = text("Home");
     			t1 = space();
     			a1 = element("a");
-    			a1.textContent = "Blog";
+    			t2 = text("Blog");
     			t3 = space();
     			a2 = element("a");
-    			a2.textContent = "About";
-    			attr_dev(a0, "class", "navItem svelte-1hpjrtd");
+    			t4 = text("About");
+    			t5 = space();
+    			dropdown.$$.fragment.c();
     			attr_dev(a0, "href", "/");
-    			add_location(a0, file$7, 4, 2, 357);
-    			attr_dev(a1, "class", "navItem svelte-1hpjrtd");
+    			set_style(a0, "color", ctx.$info.styles.textColor);
+    			attr_dev(a0, "class", "svelte-1nsm3f3");
+    			add_location(a0, file$8, 7, 2, 510);
     			attr_dev(a1, "href", "/blog/index");
-    			add_location(a1, file$7, 5, 2, 416);
-    			attr_dev(a2, "class", "navItem svelte-1hpjrtd");
+    			set_style(a1, "color", ctx.$info.styles.textColor);
+    			attr_dev(a1, "class", "svelte-1nsm3f3");
+    			add_location(a1, file$8, 8, 2, 647);
     			attr_dev(a2, "href", "/about");
-    			add_location(a2, file$7, 6, 2, 485);
+    			set_style(a2, "color", ctx.$info.styles.textColor);
+    			attr_dev(a2, "class", "svelte-1nsm3f3");
+    			add_location(a2, file$8, 9, 2, 794);
     			attr_dev(div, "id", "navbar");
-    			set_style(div, "background-color", ctx.styles.divColor);
-    			set_style(div, "background-image", ctx.styles.divbackgroundPicture);
-    			set_style(div, "border", "" + ctx.styles.borderSize + " solid " + ctx.styles.borderColor);
-    			set_style(div, "border-radius", ctx.styles.borderRadius);
-    			set_style(div, "color", ctx.styles.textColor);
-    			set_style(div, "flex-direction", (ctx.navBarON ? 'row' : 'column'));
-    			attr_dev(div, "class", "svelte-1hpjrtd");
-    			add_location(div, file$7, 0, 0, 0);
+    			set_style(div, "background-color", ctx.$info.styles.divColor);
+    			set_style(div, "background-image", ctx.$info.styles.divbackgroundPicture);
+    			set_style(div, "border", "" + ctx.$info.styles.borderSize + " solid " + ctx.$info.styles.borderColor);
+    			set_style(div, "border-radius", ctx.$info.styles.borderRadius);
+    			set_style(div, "color", ctx.$info.styles.textColor);
+    			set_style(div, "flex-direction", (ctx.$showNavbar ? 'row' : 'column'));
+    			set_style(div, "font-size", ctx.$info.styles.navFontSize);
+    			attr_dev(div, "class", "svelte-1nsm3f3");
+    			add_location(div, file$8, 0, 0, 0);
+
+    			dispose = [
+    				listen_dev(a0, "mouseover", ctx.hoverAction),
+    				listen_dev(a0, "mouseout", ctx.hoverAction),
+    				listen_dev(a1, "mouseover", ctx.hoverAction),
+    				listen_dev(a1, "mouseout", ctx.hoverAction),
+    				listen_dev(a2, "mouseover", ctx.hoverAction),
+    				listen_dev(a2, "mouseout", ctx.hoverAction)
+    			];
     		},
 
     		l: function claim(nodes) {
@@ -31464,34 +31758,63 @@ var app = (function () {
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
     			append_dev(div, a0);
+    			append_dev(a0, t0);
     			link_action = link.call(null, a0) || {};
     			active_action = active$1.call(null, a0) || {};
     			append_dev(div, t1);
     			append_dev(div, a1);
+    			append_dev(a1, t2);
     			link_action_1 = link.call(null, a1) || {};
     			active_action_1 = active$1.call(null, a1) || {};
     			append_dev(div, t3);
     			append_dev(div, a2);
+    			append_dev(a2, t4);
     			link_action_2 = link.call(null, a2) || {};
     			active_action_2 = active$1.call(null, a2) || {};
+    			append_dev(div, t5);
+    			mount_component(dropdown, div, null);
+    			current = true;
     		},
 
     		p: function update(changed, ctx) {
-    			if (changed.styles) {
-    				set_style(div, "background-color", ctx.styles.divColor);
-    				set_style(div, "background-image", ctx.styles.divbackgroundPicture);
-    				set_style(div, "border", "" + ctx.styles.borderSize + " solid " + ctx.styles.borderColor);
-    				set_style(div, "border-radius", ctx.styles.borderRadius);
-    				set_style(div, "color", ctx.styles.textColor);
+    			if (!current || changed.$info) {
+    				set_style(a0, "color", ctx.$info.styles.textColor);
+    				set_style(a1, "color", ctx.$info.styles.textColor);
+    				set_style(a2, "color", ctx.$info.styles.textColor);
     			}
 
-    			if (changed.navBarON) {
-    				set_style(div, "flex-direction", (ctx.navBarON ? 'row' : 'column'));
+    			var dropdown_changes = {};
+    			if (changed.$$scope || changed.$info) dropdown_changes.$$scope = { changed, ctx };
+    			dropdown.$set(dropdown_changes);
+
+    			if (!current || changed.$info) {
+    				set_style(div, "background-color", ctx.$info.styles.divColor);
+    				set_style(div, "background-image", ctx.$info.styles.divbackgroundPicture);
+    				set_style(div, "border", "" + ctx.$info.styles.borderSize + " solid " + ctx.$info.styles.borderColor);
+    				set_style(div, "border-radius", ctx.$info.styles.borderRadius);
+    				set_style(div, "color", ctx.$info.styles.textColor);
+    			}
+
+    			if (!current || changed.$showNavbar) {
+    				set_style(div, "flex-direction", (ctx.$showNavbar ? 'row' : 'column'));
+    			}
+
+    			if (!current || changed.$info) {
+    				set_style(div, "font-size", ctx.$info.styles.navFontSize);
     			}
     		},
 
-    		i: noop,
-    		o: noop,
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(dropdown.$$.fragment, local);
+
+    			current = true;
+    		},
+
+    		o: function outro(local) {
+    			transition_out(dropdown.$$.fragment, local);
+    			current = false;
+    		},
 
     		d: function destroy(detaching) {
     			if (detaching) {
@@ -31504,58 +31827,164 @@ var app = (function () {
     			if (active_action_1 && typeof active_action_1.destroy === 'function') active_action_1.destroy();
     			if (link_action_2 && typeof link_action_2.destroy === 'function') link_action_2.destroy();
     			if (active_action_2 && typeof active_action_2.destroy === 'function') active_action_2.destroy();
+
+    			destroy_component(dropdown);
+
+    			run_all(dispose);
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_fragment$8.name, type: "component", source: "", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_fragment$9.name, type: "component", source: "", ctx });
     	return block;
     }
 
-    function instance$7($$self, $$props, $$invalidate) {
+    function instance$8($$self, $$props, $$invalidate) {
+    	let $info, $showNavbar;
+
+    	validate_store(info, 'info');
+    	component_subscribe($$self, info, $$value => { $info = $$value; $$invalidate('$info', $info); });
+    	validate_store(showNavbar, 'showNavbar');
+    	component_subscribe($$self, showNavbar, $$value => { $showNavbar = $$value; $$invalidate('$showNavbar', $showNavbar); });
+
     	
 
-      let styles = {};
-      let navBarON = true;
+      let savedInfo = {};
 
       onMount(() => {
         //
         // Subscribe to the information store to get the site information.
         //
         const unsubscribeInfo = info.subscribe((value) => {
-          $$invalidate('styles', styles = value.styles);
+          savedInfo = value;
         });
 
         const unsubscribeshowNavbar = showNavbar.subscribe((value) => {
-          $$invalidate('navBarON', navBarON = value);
         });
 
+        //
+        // Set the default theme.
+        //
+        changeTheme('brown');
+        
         return () => { unsubscribeshowNavbar(); unsubscribeInfo(); };
       });
+
+      function hoverAction(e) {
+        switch(e.type) {
+          case 'mouseover':
+            e.target.style.color = savedInfo.styles.navHoverColor;
+            break;
+          case 'mouseout':
+            e.target.style.color = savedInfo.styles.textColor;
+            break;
+        }
+      }
+
+      function changeTheme(newTheme) {
+        var newInfo = {...savedInfo};
+        switch(newTheme) {
+          case 'light':
+            newInfo.styles.backgroundColor= '#F8F8F2',
+            newInfo.styles.backgroundPicture= '',
+            newInfo.styles.borderColor= '#F8F8F2',
+            newInfo.styles.divColor= '#F8F8F2',
+            newInfo.styles.divBackgroundPicture= '',
+            newInfo.styles.borderSize= '5px',
+            newInfo.styles.borderRadius= '10px',
+            newInfo.styles.textColor= 'black',
+            newInfo.styles.font= '20px Times New Romand, Arial',
+            newInfo.styles.headerFont= '20px Verdana, Arial',
+            newInfo.styles.navFontSize= '26px',
+            newInfo.styles.navHoverColor = 'blue',
+            newInfo.styles.showSideBar= false,
+            newInfo.styles.sideBarLeft= false,
+            newInfo.styles.widthLogo= 920,
+            newInfo.styles.widthNavbar= 700,
+            newInfo.styles.widthSidebar= 900;
+            break;
+
+          case 'dark':
+            newInfo.styles.backgroundColor= '#282B35',
+            newInfo.styles.backgroundPicture= '',
+            newInfo.styles.borderColor= '#282B35',
+            newInfo.styles.divColor= '#282B35',
+            newInfo.styles.divBackgroundPicture= '',
+            newInfo.styles.borderSize= '5px',
+            newInfo.styles.borderRadius= '10px',
+            newInfo.styles.textColor= '#F8F8F2',
+            newInfo.styles.font= '20px Times New Romand, Arial',
+            newInfo.styles.headerFont= '20px Verdana, Arial',
+            newInfo.styles.navFontSize= '24px',
+            newInfo.styles.navHoverColor = 'blue',
+            newInfo.styles.showSideBar= true,
+            newInfo.styles.sideBarLeft= false,
+            newInfo.styles.widthLogo= 920,
+            newInfo.styles.widthNavbar= 700,
+            newInfo.styles.widthSidebar= 900;
+            break;
+
+          case 'brown':
+            newInfo.styles.backgroundColor= '#D1BD79',
+            newInfo.styles.backgroundPicture= '',
+            newInfo.styles.borderColor= '#AA7942',
+            newInfo.styles.divColor= '#ECDAAC',
+            newInfo.styles.divBackgroundPicture= '',
+            newInfo.styles.borderSize= '5px',
+            newInfo.styles.borderRadius= '10px',
+            newInfo.styles.textColor= 'black',
+            newInfo.styles.font= '20px Times New Romand, Arial',
+            newInfo.styles.headerFont= '20px Verdana, Arial',
+            newInfo.styles.navFontSize= '24px',
+            newInfo.styles.navHoverColor = 'blue',
+            newInfo.styles.showSideBar= true,
+            newInfo.styles.sideBarLeft= false,
+            newInfo.styles.widthLogo= 920,
+            newInfo.styles.widthNavbar= 700,
+            newInfo.styles.widthSidebar= 900;
+            break;
+        }
+        info.set(newInfo);
+      }
+
+    	const click_handler = (e) => {changeTheme('dark');};
+
+    	const click_handler_1 = (e) => {changeTheme('light');};
+
+    	const click_handler_2 = (e) => {changeTheme('brown');};
 
     	$$self.$capture_state = () => {
     		return {};
     	};
 
     	$$self.$inject_state = $$props => {
-    		if ('styles' in $$props) $$invalidate('styles', styles = $$props.styles);
-    		if ('navBarON' in $$props) $$invalidate('navBarON', navBarON = $$props.navBarON);
+    		if ('savedInfo' in $$props) savedInfo = $$props.savedInfo;
+    		if ('$info' in $$props) info.set($info);
+    		if ('$showNavbar' in $$props) showNavbar.set($showNavbar);
     	};
 
-    	return { styles, navBarON };
+    	return {
+    		hoverAction,
+    		changeTheme,
+    		$info,
+    		$showNavbar,
+    		click_handler,
+    		click_handler_1,
+    		click_handler_2
+    	};
     }
 
     class NavBar extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$7, create_fragment$8, safe_not_equal, []);
-    		dispatch_dev("SvelteRegisterComponent", { component: this, tagName: "NavBar", options, id: create_fragment$8.name });
+    		init(this, options, instance$8, create_fragment$9, safe_not_equal, []);
+    		dispatch_dev("SvelteRegisterComponent", { component: this, tagName: "NavBar", options, id: create_fragment$9.name });
     	}
     }
 
     /* src/components/Footer.svelte generated by Svelte v3.12.1 */
 
-    const file$8 = "src/components/Footer.svelte";
+    const file$9 = "src/components/Footer.svelte";
 
-    function create_fragment$9(ctx) {
+    function create_fragment$a(ctx) {
     	var footer, div, p0, t0, a, t2, p1;
 
     	const block = {
@@ -31570,21 +31999,21 @@ var app = (function () {
     			p1 = element("p");
     			p1.textContent = "Copyrighted by Richard Guay";
     			attr_dev(a, "href", "https://github.com/raguay/SvelteGithubSiteTemplate");
-    			add_location(a, file$8, 2, 21, 266);
+    			add_location(a, file$9, 6, 21, 364);
     			attr_dev(p0, "class", "svelte-ohvpwj");
-    			add_location(p0, file$8, 2, 4, 249);
+    			add_location(p0, file$9, 6, 4, 347);
     			attr_dev(p1, "class", "svelte-ohvpwj");
-    			add_location(p1, file$8, 3, 4, 349);
+    			add_location(p1, file$9, 7, 4, 447);
     			attr_dev(div, "id", "leftBox");
     			attr_dev(div, "class", "svelte-ohvpwj");
-    			add_location(div, file$8, 1, 2, 226);
-    			set_style(footer, "background-color", ctx.styles.divColor);
-    			set_style(footer, "background-image", ctx.styles.divBackgroundPicture);
-    			set_style(footer, "border", "" + ctx.styles.borderSize + " solid " + ctx.styles.borderColor);
-    			set_style(footer, "border-radius", ctx.styles.borderRadius);
-    			set_style(footer, "color", ctx.styles.textColor);
+    			add_location(div, file$9, 5, 2, 324);
+    			set_style(footer, "background-color", ctx.$info.styles.divColor);
+    			set_style(footer, "background-image", ctx.$info.styles.divBackgroundPicture);
+    			set_style(footer, "border", "" + ctx.$info.styles.borderSize + " solid " + ctx.$info.styles.borderColor);
+    			set_style(footer, "border-radius", ctx.$info.styles.borderRadius);
+    			set_style(footer, "color", ctx.$info.styles.textColor);
     			attr_dev(footer, "class", "svelte-ohvpwj");
-    			add_location(footer, file$8, 0, 0, 0);
+    			add_location(footer, file$9, 0, 0, 0);
     		},
 
     		l: function claim(nodes) {
@@ -31602,12 +32031,12 @@ var app = (function () {
     		},
 
     		p: function update(changed, ctx) {
-    			if (changed.styles) {
-    				set_style(footer, "background-color", ctx.styles.divColor);
-    				set_style(footer, "background-image", ctx.styles.divBackgroundPicture);
-    				set_style(footer, "border", "" + ctx.styles.borderSize + " solid " + ctx.styles.borderColor);
-    				set_style(footer, "border-radius", ctx.styles.borderRadius);
-    				set_style(footer, "color", ctx.styles.textColor);
+    			if (changed.$info) {
+    				set_style(footer, "background-color", ctx.$info.styles.divColor);
+    				set_style(footer, "background-image", ctx.$info.styles.divBackgroundPicture);
+    				set_style(footer, "border", "" + ctx.$info.styles.borderSize + " solid " + ctx.$info.styles.borderColor);
+    				set_style(footer, "border-radius", ctx.$info.styles.borderRadius);
+    				set_style(footer, "color", ctx.$info.styles.textColor);
     			}
     		},
 
@@ -31620,21 +32049,23 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_fragment$9.name, type: "component", source: "", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_fragment$a.name, type: "component", source: "", ctx });
     	return block;
     }
 
-    function instance$8($$self, $$props, $$invalidate) {
+    function instance$9($$self, $$props, $$invalidate) {
+    	let $info;
+
+    	validate_store(info, 'info');
+    	component_subscribe($$self, info, $$value => { $info = $$value; $$invalidate('$info', $info); });
+
     	
      
-      let styles = {};
-
       onMount(() => {
         //
         // Subscribe to the information store to get the site information.
         //
         const unsubscribeInfo = info.subscribe((value) => {
-          $$invalidate('styles', styles = value.styles);
         });
 
         return () => { unsubscribeInfo(); };
@@ -31645,17 +32076,17 @@ var app = (function () {
     	};
 
     	$$self.$inject_state = $$props => {
-    		if ('styles' in $$props) $$invalidate('styles', styles = $$props.styles);
+    		if ('$info' in $$props) info.set($info);
     	};
 
-    	return { styles };
+    	return { $info };
     }
 
     class Footer extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$8, create_fragment$9, safe_not_equal, []);
-    		dispatch_dev("SvelteRegisterComponent", { component: this, tagName: "Footer", options, id: create_fragment$9.name });
+    		init(this, options, instance$9, create_fragment$a, safe_not_equal, []);
+    		dispatch_dev("SvelteRegisterComponent", { component: this, tagName: "Footer", options, id: create_fragment$a.name });
     	}
     }
 
@@ -31668,9 +32099,9 @@ var app = (function () {
     /* src/WebSite.svelte generated by Svelte v3.12.1 */
     const { document: document_1 } = globals;
 
-    const file$9 = "src/WebSite.svelte";
+    const file$a = "src/WebSite.svelte";
 
-    // (14:4) {#if showLogo }
+    // (18:4) {#if showLogo }
     function create_if_block_2(ctx) {
     	var current;
 
@@ -31702,11 +32133,11 @@ var app = (function () {
     			destroy_component(logo, detaching);
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_2.name, type: "if", source: "(14:4) {#if showLogo }", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_2.name, type: "if", source: "(18:4) {#if showLogo }", ctx });
     	return block;
     }
 
-    // (26:4) {#if styles.showSideBar && styles.sideBarLeft && sidebarON}
+    // (30:4) {#if $info.styles.sideBarLeft && $showSidebar}
     function create_if_block_1$1(ctx) {
     	var current;
 
@@ -31738,11 +32169,11 @@ var app = (function () {
     			destroy_component(sidebar, detaching);
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_1$1.name, type: "if", source: "(26:4) {#if styles.showSideBar && styles.sideBarLeft && sidebarON}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_1$1.name, type: "if", source: "(30:4) {#if $info.styles.sideBarLeft && $showSidebar}", ctx });
     	return block;
     }
 
-    // (30:4) {#if styles.showSideBar && !styles.sideBarLeft && sidebarON}
+    // (34:4) {#if !$info.styles.sideBarLeft && $showSidebar}
     function create_if_block$1(ctx) {
     	var current;
 
@@ -31774,29 +32205,29 @@ var app = (function () {
     			destroy_component(sidebar, detaching);
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block$1.name, type: "if", source: "(30:4) {#if styles.showSideBar && !styles.sideBarLeft && sidebarON}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block$1.name, type: "if", source: "(34:4) {#if !$info.styles.sideBarLeft && $showSidebar}", ctx });
     	return block;
     }
 
-    function create_fragment$a(ctx) {
-    	var title_value, link_1, meta0, meta0_content_value, meta1, meta1_content_value, t0, div3, header, t1, div0, h1, t2, t3, h3, t4, t5, div1, t6, t7, div2, t8, t9, t10, current, dispose;
+    function create_fragment$b(ctx) {
+    	var title_value, link_1, meta0, meta0_content_value, meta1, meta1_content_value, t0, div3, header, t1, div0, h1, t2_value = ctx.$info.siteName + "", t2, t3, h3, t4_value = ctx.$info.byLine + "", t4, t5, div1, t6, t7, div2, t8, t9, t10, current, dispose;
 
     	add_render_callback(ctx.onwindowresize);
 
-    	document_1.title = title_value = ctx.siteName + ctx.seoMeta.addTitle;
+    	document_1.title = title_value = ctx.$info.siteName + ctx.$seo.addTitle;
 
     	var if_block0 = (ctx.showLogo) && create_if_block_2(ctx);
 
     	var navbar = new NavBar({ $$inline: true });
 
-    	var if_block1 = (ctx.styles.showSideBar && ctx.styles.sideBarLeft && ctx.sidebarON) && create_if_block_1$1(ctx);
+    	var if_block1 = (ctx.$info.styles.sideBarLeft && ctx.$showSidebar) && create_if_block_1$1(ctx);
 
     	var router = new Router({
     		props: { routes: ctx.routes },
     		$$inline: true
     	});
 
-    	var if_block2 = (ctx.styles.showSideBar && !ctx.styles.sideBarLeft && ctx.sidebarON) && create_if_block$1(ctx);
+    	var if_block2 = (!ctx.$info.styles.sideBarLeft && ctx.$showSidebar) && create_if_block$1(ctx);
 
     	var footer = new Footer({ $$inline: true });
 
@@ -31812,10 +32243,10 @@ var app = (function () {
     			t1 = space();
     			div0 = element("div");
     			h1 = element("h1");
-    			t2 = text(ctx.siteName);
+    			t2 = text(t2_value);
     			t3 = space();
     			h3 = element("h3");
-    			t4 = text(ctx.byLine);
+    			t4 = text(t4_value);
     			t5 = space();
     			div1 = element("div");
     			t6 = space();
@@ -31832,38 +32263,38 @@ var app = (function () {
     			attr_dev(link_1, "rel", "icon");
     			attr_dev(link_1, "type", "image/png");
     			attr_dev(link_1, "href", "/imgs/favicon.png");
-    			add_location(link_1, file$9, 2, 2, 63);
+    			add_location(link_1, file$a, 2, 2, 66);
     			attr_dev(meta0, "name", "robots");
-    			attr_dev(meta0, "content", meta0_content_value = ctx.seoMeta.robot);
-    			add_location(meta0, file$9, 3, 2, 125);
+    			attr_dev(meta0, "content", meta0_content_value = ctx.$seo.robot);
+    			add_location(meta0, file$a, 3, 2, 128);
     			attr_dev(meta1, "name", "description");
-    			attr_dev(meta1, "content", meta1_content_value = ctx.seoMeta.description);
-    			add_location(meta1, file$9, 4, 2, 174);
-    			add_location(h1, file$9, 17, 6, 793);
-    			add_location(h3, file$9, 18, 6, 819);
+    			attr_dev(meta1, "content", meta1_content_value = ctx.$seo.description);
+    			add_location(meta1, file$a, 4, 2, 174);
+    			add_location(h1, file$a, 21, 6, 940);
+    			add_location(h3, file$a, 22, 6, 972);
     			attr_dev(div0, "id", "title");
     			set_style(div0, "width", (ctx.showLogo ? 'auto' : '100%'));
-    			attr_dev(div0, "class", "svelte-1qn64q1");
-    			add_location(div0, file$9, 16, 4, 725);
+    			attr_dev(div0, "class", "svelte-1jtpjkd");
+    			add_location(div0, file$a, 20, 4, 872);
     			attr_dev(div1, "id", "spacer");
-    			attr_dev(div1, "class", "svelte-1qn64q1");
-    			add_location(div1, file$9, 20, 4, 852);
-    			set_style(header, "background-color", ctx.styles.divBackgroundColor);
-    			set_style(header, "background-image", ctx.styles.headerBackgroundPicture);
-    			set_style(header, "border", "" + ctx.styles.borderSize + " solid " + ctx.styles.borderColor);
-    			set_style(header, "border-radius", ctx.styles.borderRadius);
-    			set_style(header, "color", ctx.styles.textColor);
-    			set_style(header, "font", ctx.styles.headerFont);
-    			attr_dev(header, "class", "svelte-1qn64q1");
-    			add_location(header, file$9, 10, 2, 407);
+    			attr_dev(div1, "class", "svelte-1jtpjkd");
+    			add_location(div1, file$a, 24, 4, 1011);
+    			set_style(header, "background-color", ctx.$info.styles.divColor);
+    			set_style(header, "background-image", ctx.$info.styles.headerBackgroundPicture);
+    			set_style(header, "border", "" + ctx.$info.styles.borderSize + " solid " + ctx.$info.styles.borderColor);
+    			set_style(header, "border-radius", ctx.$info.styles.borderRadius);
+    			set_style(header, "color", ctx.$info.styles.textColor);
+    			set_style(header, "font", ctx.$info.styles.headerFont);
+    			attr_dev(header, "class", "svelte-1jtpjkd");
+    			add_location(header, file$a, 11, 2, 438);
     			attr_dev(div2, "id", "main");
-    			attr_dev(div2, "class", "svelte-1qn64q1");
-    			add_location(div2, file$9, 24, 2, 908);
+    			attr_dev(div2, "class", "svelte-1jtpjkd");
+    			add_location(div2, file$a, 28, 2, 1067);
     			attr_dev(div3, "id", "page");
-    			set_style(div3, "background-color", ctx.styles.backgroundColor);
-    			set_style(div3, "font", ctx.styles.font);
-    			attr_dev(div3, "class", "svelte-1qn64q1");
-    			add_location(div3, file$9, 9, 0, 316);
+    			set_style(div3, "background-color", ctx.$info.styles.backgroundColor);
+    			set_style(div3, "font", ctx.$info.styles.font);
+    			attr_dev(div3, "class", "svelte-1jtpjkd");
+    			add_location(div3, file$a, 9, 0, 313);
 
     			dispose = [
     				listen_dev(window, "resize", ctx.winResize),
@@ -31907,15 +32338,15 @@ var app = (function () {
     		},
 
     		p: function update(changed, ctx) {
-    			if ((!current || changed.siteName || changed.seoMeta) && title_value !== (title_value = ctx.siteName + ctx.seoMeta.addTitle)) {
+    			if ((!current || changed.$info || changed.$seo) && title_value !== (title_value = ctx.$info.siteName + ctx.$seo.addTitle)) {
     				document_1.title = title_value;
     			}
 
-    			if ((!current || changed.seoMeta) && meta0_content_value !== (meta0_content_value = ctx.seoMeta.robot)) {
+    			if ((!current || changed.$seo) && meta0_content_value !== (meta0_content_value = ctx.$seo.robot)) {
     				attr_dev(meta0, "content", meta0_content_value);
     			}
 
-    			if ((!current || changed.seoMeta) && meta1_content_value !== (meta1_content_value = ctx.seoMeta.description)) {
+    			if ((!current || changed.$seo) && meta1_content_value !== (meta1_content_value = ctx.$seo.description)) {
     				attr_dev(meta1, "content", meta1_content_value);
     			}
 
@@ -31934,28 +32365,28 @@ var app = (function () {
     				check_outros();
     			}
 
-    			if (!current || changed.siteName) {
-    				set_data_dev(t2, ctx.siteName);
+    			if ((!current || changed.$info) && t2_value !== (t2_value = ctx.$info.siteName + "")) {
+    				set_data_dev(t2, t2_value);
     			}
 
-    			if (!current || changed.byLine) {
-    				set_data_dev(t4, ctx.byLine);
+    			if ((!current || changed.$info) && t4_value !== (t4_value = ctx.$info.byLine + "")) {
+    				set_data_dev(t4, t4_value);
     			}
 
     			if (!current || changed.showLogo) {
     				set_style(div0, "width", (ctx.showLogo ? 'auto' : '100%'));
     			}
 
-    			if (!current || changed.styles) {
-    				set_style(header, "background-color", ctx.styles.divBackgroundColor);
-    				set_style(header, "background-image", ctx.styles.headerBackgroundPicture);
-    				set_style(header, "border", "" + ctx.styles.borderSize + " solid " + ctx.styles.borderColor);
-    				set_style(header, "border-radius", ctx.styles.borderRadius);
-    				set_style(header, "color", ctx.styles.textColor);
-    				set_style(header, "font", ctx.styles.headerFont);
+    			if (!current || changed.$info) {
+    				set_style(header, "background-color", ctx.$info.styles.divColor);
+    				set_style(header, "background-image", ctx.$info.styles.headerBackgroundPicture);
+    				set_style(header, "border", "" + ctx.$info.styles.borderSize + " solid " + ctx.$info.styles.borderColor);
+    				set_style(header, "border-radius", ctx.$info.styles.borderRadius);
+    				set_style(header, "color", ctx.$info.styles.textColor);
+    				set_style(header, "font", ctx.$info.styles.headerFont);
     			}
 
-    			if (ctx.styles.showSideBar && ctx.styles.sideBarLeft && ctx.sidebarON) {
+    			if (ctx.$info.styles.sideBarLeft && ctx.$showSidebar) {
     				if (!if_block1) {
     					if_block1 = create_if_block_1$1(ctx);
     					if_block1.c();
@@ -31970,7 +32401,7 @@ var app = (function () {
     				check_outros();
     			}
 
-    			if (ctx.styles.showSideBar && !ctx.styles.sideBarLeft && ctx.sidebarON) {
+    			if (!ctx.$info.styles.sideBarLeft && ctx.$showSidebar) {
     				if (!if_block2) {
     					if_block2 = create_if_block$1(ctx);
     					if_block2.c();
@@ -31985,9 +32416,9 @@ var app = (function () {
     				check_outros();
     			}
 
-    			if (!current || changed.styles) {
-    				set_style(div3, "background-color", ctx.styles.backgroundColor);
-    				set_style(div3, "font", ctx.styles.font);
+    			if (!current || changed.$info) {
+    				set_style(div3, "background-color", ctx.$info.styles.backgroundColor);
+    				set_style(div3, "font", ctx.$info.styles.font);
     			}
     		},
 
@@ -32043,11 +32474,20 @@ var app = (function () {
     			run_all(dispose);
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_fragment$a.name, type: "component", source: "", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_fragment$b.name, type: "component", source: "", ctx });
     	return block;
     }
 
-    function instance$9($$self, $$props, $$invalidate) {
+    function instance$a($$self, $$props, $$invalidate) {
+    	let $info, $seo, $showSidebar;
+
+    	validate_store(info, 'info');
+    	component_subscribe($$self, info, $$value => { $info = $$value; $$invalidate('$info', $info); });
+    	validate_store(seo, 'seo');
+    	component_subscribe($$self, seo, $$value => { $seo = $$value; $$invalidate('$seo', $seo); });
+    	validate_store(showSidebar, 'showSidebar');
+    	component_subscribe($$self, showSidebar, $$value => { $showSidebar = $$value; $$invalidate('$showSidebar', $showSidebar); });
+
     	
 
       const routes = {
@@ -32070,30 +32510,23 @@ var app = (function () {
         '*': Page
       };
 
-      let siteName = '';
-      let byLine = '';
-      let styles = {};
-      let seoMeta = {};
       let winWidth = 0;
-      let sidebarON = true;
       let showLogo = true;
-
+      let savedInfo = {};
+      
       onMount(() => {
         //
         // Subscribe to the information store to get the site information.
         //
         const unsubscribeInfo = info.subscribe((value) => {
-          $$invalidate('siteName', siteName = value.siteName);
-          $$invalidate('byLine', byLine = value.byLine);
-          $$invalidate('styles', styles = value.styles);
-          document.body.style.backgroundColor = styles.backgroundColor;
+          savedInfo = value;
+          document.body.style.backgroundColor = value.styles.backgroundColor;
+          winResize();
         });
 
         const unsubscribeSEO = seo.subscribe((value) => {
-          $$invalidate('seoMeta', seoMeta = value);
         });
-       
-        winResize();
+
         return () => {
           unsubsribeInfo();
           unsubscribeSEO();
@@ -32104,24 +32537,25 @@ var app = (function () {
         //
         // Determine if we will show the sidebar or not.
         //
-        if(winWidth < styles.widthSidebar) {
-          $$invalidate('sidebarON', sidebarON = false);
+        if(savedInfo.styles.showSideBar && (winWidth > savedInfo.styles.widthSidebar)) {
+          showSidebar.set(true);
         } else {
-          $$invalidate('sidebarON', sidebarON = true);
+          showSidebar.set(false);
         }
 
         //
-        // Tell all subscribers the news.
+        // Determine to show the logo or not.
         //
-        showSidebar.set(sidebarON);
-
-        if(winWidth < styles.widthLogo) {
+        if(winWidth < savedInfo.styles.widthLogo) {
           $$invalidate('showLogo', showLogo = false);
         } else {
           $$invalidate('showLogo', showLogo = true);
         }
 
-        if(winWidth < styles.widthNavbar) {
+        //
+        // Determine if we show the navigation bar or not.
+        //
+        if(winWidth < savedInfo.styles.widthNavbar) {
           showNavbar.set(false);
         } else {
           showNavbar.set(true);
@@ -32137,25 +32571,22 @@ var app = (function () {
     	};
 
     	$$self.$inject_state = $$props => {
-    		if ('siteName' in $$props) $$invalidate('siteName', siteName = $$props.siteName);
-    		if ('byLine' in $$props) $$invalidate('byLine', byLine = $$props.byLine);
-    		if ('styles' in $$props) $$invalidate('styles', styles = $$props.styles);
-    		if ('seoMeta' in $$props) $$invalidate('seoMeta', seoMeta = $$props.seoMeta);
     		if ('winWidth' in $$props) $$invalidate('winWidth', winWidth = $$props.winWidth);
-    		if ('sidebarON' in $$props) $$invalidate('sidebarON', sidebarON = $$props.sidebarON);
     		if ('showLogo' in $$props) $$invalidate('showLogo', showLogo = $$props.showLogo);
+    		if ('savedInfo' in $$props) savedInfo = $$props.savedInfo;
+    		if ('$info' in $$props) info.set($info);
+    		if ('$seo' in $$props) seo.set($seo);
+    		if ('$showSidebar' in $$props) showSidebar.set($showSidebar);
     	};
 
     	return {
     		routes,
-    		siteName,
-    		byLine,
-    		styles,
-    		seoMeta,
     		winWidth,
-    		sidebarON,
     		showLogo,
     		winResize,
+    		$info,
+    		$seo,
+    		$showSidebar,
     		onwindowresize
     	};
     }
@@ -32163,8 +32594,8 @@ var app = (function () {
     class WebSite extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$9, create_fragment$a, safe_not_equal, []);
-    		dispatch_dev("SvelteRegisterComponent", { component: this, tagName: "WebSite", options, id: create_fragment$a.name });
+    		init(this, options, instance$a, create_fragment$b, safe_not_equal, []);
+    		dispatch_dev("SvelteRegisterComponent", { component: this, tagName: "WebSite", options, id: create_fragment$b.name });
     	}
     }
 

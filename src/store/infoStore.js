@@ -18,6 +18,8 @@ export const info = writable({
     textColor: 'black',
     font: '20px Times New Romand, Arial',
     headerFont: '20px Verdana, Arial',
+    navFontSize: '24px',
+    navHoverColor: 'blue',
     showSideBar: true,
     sideBarLeft: false,
     widthLogo: 920,
