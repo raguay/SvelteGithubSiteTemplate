@@ -6,8 +6,6 @@
                         flex-direction: {$showNavbar ? 'row' : 'column'}; 
                         font-size: {$info.styles.navFontSize};" >
   <a href='/' style="color: {$info.styles.textColor};" on:mouseover={hoverAction} on:mouseout={hoverAction} use:link use:active>Home</a>
-  <a href='/blog/index' style="color: {$info.styles.textColor};" on:mouseover={hoverAction} on:mouseout={hoverAction} use:link use:active>Blog</a>
-  <a href='/about' style="color: {$info.styles.textColor};" on:mouseover={hoverAction} on:mouseout={hoverAction} use:link use:active>About</a>
   <Dropdown name='Themes'>
     <a href='/#' style="color: {$info.styles.textColor};" on:mouseover={hoverAction} on:mouseout={hoverAction} on:click|preventDefault={(e) => {changeTheme('dark');}}>Dark</a>
     <a href='/#' style="color: {$info.styles.textColor};" on:mouseover={hoverAction} on:mouseout={hoverAction} on:click|preventDefault={(e) => {changeTheme('light');}}>Light</a>
@@ -52,12 +50,12 @@
 
     const unsubscribeshowNavbar = showNavbar.subscribe((value) => {
     })
-
+    
     //
     // Set the default theme.
     //
-    changeTheme('brown');
-    
+    changeTheme(savedInfo.styles.theme);
+
     return () => { unsubscribeshowNavbar(); unsubscribeInfo(); };
   });
 

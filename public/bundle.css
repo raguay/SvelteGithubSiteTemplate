@@ -1,13 +1,12 @@
 body{display:flex;flex-direction:column;margin:0px;padding:0px}a.active{color:#155393 !important;text-decoration-color:#155393 !important}header.svelte-1jtpjkd{display:flex;flex-direction:row;width:85%;margin:auto;padding:10px;flex-shrink:0}#spacer.svelte-1jtpjkd{width:150px;padding:0px;margin:0px}#title.svelte-1jtpjkd{display:flex;flex-direction:column;text-align:center;align-content:center;flex-shrink:0}#page.svelte-1jtpjkd{display:flex;flex-direction:column;margin:0px;padding:15px}#main.svelte-1jtpjkd{display:flex;flex-direction:row;width:87%;align-content:center;margin:auto;padding:0px}
 .box.svelte-wu3glg{width:100%;margin:auto;padding:10px;margin-top:10px;margin-bottom:10px}
-#sidebar.svelte-1l2bqy{width:30%;padding:10px;margin-top:10px;margin-bottom:10px}
-.box.svelte-scql2x{width:100%;margin:auto;padding:10px;margin-top:10px;margin-bottom:10px}.box.svelte-scql2x{width:100%;margin:auto;padding:10px;margin-top:10px;margin-bottom:10px}
-#navbar.svelte-1nsm3f3{display:flex;width:85%;margin:auto;border-radius:10px;padding:10px;margin-top:10px;margin-bottom:10px}#navbar.svelte-1nsm3f3 a.svelte-1nsm3f3{text-decoration:none;margin:0px 15px 0px 0px}
-content.svelte-2f583i{margin:10px 0px;padding:10px;flex-shrink:1}#waiting.svelte-2f583i{height:100%;width:100%;min-height:200px;margin:auto}
 svg.svelte-1fn6wgv{margin:auto;flex-shrink:0;width:150px;height:100px}
+.box.svelte-scql2x{width:100%;margin:auto;padding:10px;margin-top:10px;margin-bottom:10px}.box.svelte-scql2x{width:100%;margin:auto;padding:10px;margin-top:10px;margin-bottom:10px}
+content.svelte-2f583i{margin:10px 0px;padding:10px;flex-shrink:1}#waiting.svelte-2f583i{height:100%;width:100%;min-height:200px;margin:auto}
 footer.svelte-ohvpwj{width:85%;margin:auto;padding:10px}#leftBox.svelte-ohvpwj{float:left;display:flex;flex-direction:column}#leftBox.svelte-ohvpwj p.svelte-ohvpwj{margin:0px;padding:0px}
+#navbar.svelte-1nsm3f3{display:flex;width:85%;margin:auto;border-radius:10px;padding:10px;margin-top:10px;margin-bottom:10px}#navbar.svelte-1nsm3f3 a.svelte-1nsm3f3{text-decoration:none;margin:0px 15px 0px 0px}
+#sidebar.svelte-1l2bqy{width:30%;padding:10px;margin-top:10px;margin-bottom:10px}
 #blog.svelte-12waaog{display:flex;flex-direction:column;align-items:left;align-content:left;margin:10px 0px 10px 0px}#blog.svelte-12waaog h4.svelte-12waaog{margin:auto;padding:5px 0px 10px 0px}#blog.svelte-12waaog a.svelte-12waaog{text-decoration:none}
-#twitter.svelte-rdi7ft{}
 #dropdown.svelte-i7lufb{display:flex;flex-direction:column;overflow:hidden}#dropdown.svelte-i7lufb a.svelte-i7lufb:first-child{margin-bottom:10px;text-decoration:none}
 
 /*# sourceMappingURL=bundle.css.map */

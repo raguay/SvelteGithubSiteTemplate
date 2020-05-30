@@ -1,13 +1,14 @@
 import { writable } from 'svelte/store';
 
 export const info = writable({
-  siteName: 'Svelte Website Template',
-  byLine: 'For creating a great website from GitHub Pages.',
+  siteName: 'Nuem',
+  byLine: 'Rethinking the menu',
   address: 'http://localhost:5000',
-  GitHub: 'https://raw.githubusercontent.com/',
+  GitHub: 'https://raw.micahguay.com/numi.io/',
   parts: ['test.html'],
-  local: true,
+  local: false,
   styles: {
+    theme: 'light',
     backgroundColor: '#D1BD79',
     backgroundPicture: '',
     borderColor: '#AA7942',
@@ -20,7 +21,8 @@ export const info = writable({
     headerFont: '20px Verdana, Arial',
     navFontSize: '24px',
     navHoverColor: 'blue',
-    showSideBar: true,
+    showlogo: false,
+    showSideBar: false,
     sideBarLeft: false,
     widthLogo: 920,
     widthNavbar: 700,

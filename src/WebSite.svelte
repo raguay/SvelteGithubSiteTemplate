@@ -124,8 +124,6 @@
     //
     '/': Index,
 
-    '/about': About,
-
     //
     // Catch-all
     // This is optional, but if present it must be the last
@@ -138,7 +136,7 @@
   }
 
   let winWidth = 0;
-  let showLogo = true;
+  let showLogo = false;
   let savedInfo = {};
   
   onMount(() => {
@@ -148,6 +146,7 @@
     const unsubscribeInfo = info.subscribe((value) => {
       savedInfo = value;
       document.body.style.backgroundColor = value.styles.backgroundColor;
+      showLogo = value.styles.showlogo;
       winResize({});
     });
 
@@ -173,7 +172,7 @@
     //
     // Determine to show the logo or not.
     //
-    if(winWidth < savedInfo.styles.widthLogo) {
+    if((winWidth < savedInfo.styles.widthLogo)||(!savedInfo.styles.showlogo)) {
       showLogo = false;
     } else {
       showLogo = true;

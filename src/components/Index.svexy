@@ -28,35 +28,6 @@
                         background-image: {$info.styles.divBackgroundPicture}; 
                         color: {$info.styles.textColor}; border: {$info.styles.borderSize} solid {$info.styles.borderColor};
                         border-radius: {$info.styles.borderRadius};" in:fade="{{duration: 500}}">
-
-This markdown file contains the front page for your site. Everything in this
-file will be in the main content area. This file and the `About.svexy` file are
-compiled into a Svelte element and loaded when any page is loaded. Therefore, when 
-the user selects links to these pages, they will appear instantly as they are 
-already loaded into the user's browser.
-
-The template is setup to run in development mode. To run from GitHub, you need to
-edit the `infoStore.js` file in the `store` directory. The items you have to change
-is:
-
-```sh
-GitHub: '<the address of the site directory in raw mode>',
-local: false
-```
-
-The other fields are display on the website and should already be changed. With the
-above changes, you can run `mask build`, commit the changes in the `launch` directory,
-and run `git push` to push it to your site.
-
-To get '<the address of the site directory in raw mode>', you first have to commit the
-basic site to your GitHub pages repository, navigate to the `launch/site` folder on
-GitHub, and then click the `raw` button. The address in your browser should have
-the full address to the `site` directory in raw mode. Copy and paste that address into
-the `infoStore.js` file as mentioned above.
-
-The `infoStore.js` file also contains the site's styling configuration. You can change the
-look of your site from the `info.style` object. You can also turn on/off the sidebar and
-make the sidebar on the left side or the right side. You can make the site look anyway like. 
-Also, by changing the store style values, you can dynamically change the styling of your site.
+Rethinking the menu. We are coming soon.
 </div>
 
